@@ -786,13 +786,6 @@ function createDailyStudySection(container) {
     container.innerHTML = '';
     
     // 1. Hanja Section (4 random from checked levels)
-    const hanjaHeading = document.createElement('h3');
-    hanjaHeading.style.borderLeft = '5px solid var(--accent-yellow)';
-    hanjaHeading.style.paddingLeft = '10px';
-    hanjaHeading.style.marginBottom = '12px';
-    hanjaHeading.innerText = '🏮 오늘의 한자 학습 (4글자)';
-    container.appendChild(hanjaHeading);
-
     let allHanjaData = [];
     if (document.getElementById('daily-hanja-8')?.checked && typeof HANJA_8_DATA !== 'undefined') allHanjaData.push(...HANJA_8_DATA);
     if (document.getElementById('daily-hanja-7')?.checked && typeof HANJA_7_DATA !== 'undefined') allHanjaData.push(...HANJA_7_DATA);
@@ -813,14 +806,6 @@ function createDailyStudySection(container) {
     createHanjaLevelSection(container, randomHanja, 4);
 
     // 2. Sajaseongeo Section (1 idiom)
-    const gosaHeading = document.createElement('h3');
-    gosaHeading.style.borderLeft = '5px solid #6366f1';
-    gosaHeading.style.paddingLeft = '10px';
-    gosaHeading.style.marginTop = '14px';
-    gosaHeading.style.marginBottom = '8px';
-    gosaHeading.innerText = '📚 오늘의 사자성어 (1개)';
-    container.appendChild(gosaHeading);
-
     let allGosaData = [];
     if (document.getElementById('daily-gosa-jun4')?.checked && typeof GOSA_JUN4_DATA !== 'undefined') allGosaData.push(...GOSA_JUN4_DATA);
     if (document.getElementById('daily-gosa-4')?.checked && typeof GOSA_4_DATA !== 'undefined') allGosaData.push(...GOSA_4_DATA);
@@ -835,6 +820,7 @@ function createDailyStudySection(container) {
     if (gosaItem && gosaItem.hanja) {
         const card = document.createElement('div');
         card.className = 'daily-gosa-card';
+        card.style.marginTop = '8px';
         
         const info = document.createElement('div');
         info.className = 'daily-gosa-info';
@@ -885,14 +871,6 @@ function createDailyStudySection(container) {
     }
 
     // 3. English Section (4 random from all Junior files)
-    const englishHeading = document.createElement('h3');
-    englishHeading.style.borderLeft = '5px solid var(--accent-pink)';
-    englishHeading.style.paddingLeft = '10px';
-    englishHeading.style.marginTop = '12px';
-    englishHeading.style.marginBottom = '8px';
-    englishHeading.innerText = '📝 오늘의 영단어 학습 (4단어)';
-    container.appendChild(englishHeading);
-
     let allEnglishData = [];
     for (let i = 123; i <= 145; i++) {
         const chk = document.getElementById(`daily-eng-${i}`);
@@ -1025,9 +1003,9 @@ function createBrainMathSection(container) {
     const problemsContainer = document.createElement('div');
     problemsContainer.style.display = 'flex';
     problemsContainer.style.flexDirection = 'column';
-    problemsContainer.style.gap = '20px';
-    problemsContainer.style.padding = '20px';
-    problemsContainer.style.marginTop = '15px';
+    problemsContainer.style.gap = '10px';
+    problemsContainer.style.padding = '12px 20px';
+    problemsContainer.style.marginTop = '10px';
     problemsContainer.style.backgroundColor = '#f8fafc';
     problemsContainer.style.borderRadius = '10px';
     problemsContainer.style.border = '2px dashed #cbd5e1';
