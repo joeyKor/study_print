@@ -1,0 +1,749 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>학습지 제작소 - 스마트 교육 솔루션</title>
+    <link rel="stylesheet" href="styles.css?v=6">
+    <!-- FontAwesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1><i class="fas fa-pencil-alt"></i> 학습지 제작소</h1>
+            <div class="nav-menu">
+                <button class="btn btn-outline" onclick="openSettingsModal()"><i class="fas fa-cog"></i> 설정</button>
+                <button class="btn btn-outline" onclick="showDashboard()">메인으로</button>
+                <button class="btn btn-primary" onclick="window.print()">인쇄하기</button>
+            </div>
+        </header>
+
+        <main>
+            <!-- Worksheet Preview View -->
+            <div id="worksheet-container" style="display: flex;">
+                <aside class="sidebar">
+                    <!-- Math Sub-categories -->
+                    <div id="sidebar-math" class="sidebar-section" style="display:none;">
+                        <h4>연산 세부 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('math', 'add')">덧셈 (+)</li>
+                            <li onclick="setSubCategory('math', 'sub')">뺄셈 (-)</li>
+                            <li onclick="setSubCategory('math', 'mul')">곱셈 (×)</li>
+                            <li onclick="setSubCategory('math', 'div')">나눗셈 (÷)</li>
+                            <li onclick="setSubCategory('math', 'mixed')">혼합 계산</li>
+                            <li onclick="setSubCategory('math', 'fraction')">분수 기초</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>난이도 선택</label>
+                            <select id="lv-select" class="form-select" onchange="refreshContent()">
+                                <option value="1">수준 1 (기초)</option>
+                                <option value="2">수준 2 (심화)</option>
+                                <option value="3">수준 3 (도전)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- Hangeul Writing Sub-categories -->
+                    <div id="sidebar-hangeul" class="sidebar-section" style="display:none;">
+                        <h4>한글 쓰기 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('hangeul', 'basic')">기초 낱자</li>
+                            <li onclick="setSubCategory('hangeul', 'word')">낱말 쓰기 (단어)</li>
+                            <li onclick="setSubCategory('hangeul', 'sentence')">문장 쓰기</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>한글 글꼴</label>
+                            <select id="select-sidebar-kor-font" class="form-select" onchange="onSidebarKorFontChange(this.value)">
+                                <option value="NanumBarunpen">나눔바른펜 (추천)</option>
+                                <option value="GowunBatang">교과서 정자체</option>
+                                <option value="GowunDodum">바른 교재체</option>
+                                <option value="Gaegu">개구체 (손글씨)</option>
+                                <option value="NanumGothic">표준 고딕</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Hangeul Word Writing Sub-categories -->
+                    <div id="sidebar-hangeul-word" class="sidebar-section" style="display:none;">
+                        <h4>단어쓰기 테마</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('hangeul_word', 'animals')">동물 친구들</li>
+                            <li onclick="setSubCategory('hangeul_word', 'fruits')">과일과 채소</li>
+                            <li onclick="setSubCategory('hangeul_word', 'food')">맛있는 음식</li>
+                            <li onclick="setSubCategory('hangeul_word', 'vehicles')">씽씽 탈것</li>
+                            <li onclick="setSubCategory('hangeul_word', 'things')">생활 속 사물</li>
+                            <li onclick="setSubCategory('hangeul_word', 'body_family')">우리 몸과 가족</li>
+                            <li onclick="setSubCategory('hangeul_word', 'nature')">자연과 날씨</li>
+                            <li onclick="setSubCategory('hangeul_word', 'mixed')">골고루 섞어보기</li>
+                        </ul>
+                        <div class="sidebar-item" style="margin-top: 15px; margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">단어 개수 (세로)</label>
+                            <select id="hangeul-word-count" class="form-select" onchange="refreshContent()">
+                                <option value="5" selected>5개 단어 (A4 꽉 채움)</option>
+                                <option value="4">4개 단어 (여유롭게)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">단어당 쓰기 행</label>
+                            <select id="hangeul-word-rows" class="form-select" onchange="refreshContent()">
+                                <option value="2" selected>2줄 쓰기 (따라쓰기 + 빈칸)</option>
+                                <option value="3">3줄 쓰기 (따라쓰기 2회 + 빈칸)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Hanja Writing Sub-categories -->
+                    <div id="sidebar-hanja" class="sidebar-section" style="display:none;">
+                        <h4>한자 쓰기 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('hanja', 'hanja8')">한자 8급</li>
+                            <li onclick="setSubCategory('hanja', 'hanja7')">한자 7급</li>
+                            <li onclick="setSubCategory('hanja', 'hanja6')">한자 6급</li>
+                            <li onclick="setSubCategory('hanja', 'hanjajun5')">한자 준5급</li>
+                            <li onclick="setSubCategory('hanja', 'hanja5')">한자 5급</li>
+                            <li onclick="setSubCategory('hanja', 'hanjajun4')">한자 준4급</li>
+                            <li onclick="setSubCategory('hanja', 'hanja4')">한자 4급</li>
+                            <li onclick="setSubCategory('hanja', 'hanjajun3')">한자 준3급</li>
+                            <li onclick="setSubCategory('hanja', 'hanja3')">한자 3급</li>
+                            <li onclick="setSubCategory('hanja', 'gosa')">고사성어</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Hanja Practice Sub-categories (New) -->
+                    <div id="sidebar-hanja-practice" class="sidebar-section" style="display:none;">
+                        <h4>한자 쓰기 연습</h4>
+                        <div style="font-size: 0.9rem; color: var(--text-muted); line-height: 1.5; margin-bottom: 20px;">
+                            <p><i class="fas fa-info-circle"></i> 이 양식은 한자 쓰기 연습을 위한 완전히 비어 있는 빈 양식입니다.</p>
+                            <p style="margin-top: 10px;">상단의 <strong>인쇄하기</strong> 버튼을 누르면 A4 규격에 맞춰 깨끗하게 출력됩니다.</p>
+                        </div>
+                    </div>
+
+                    <!-- Tracing Sub-categories -->
+                    <div id="sidebar-tracing" class="sidebar-section" style="display:none;">
+                        <h4>선긋기 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('tracing', 'basic')">기초 직선</li>
+                            <li onclick="setSubCategory('tracing', 'wave')">구불구불 곡선</li>
+                            <li onclick="setSubCategory('tracing', 'zigzag')">지그재그 선</li>
+                            <li onclick="setSubCategory('tracing', 'matching')">짝짓기 선긋기</li>
+                        </ul>
+                    </div>
+
+                    <!-- Drawing/Coloring Sub-categories -->
+                    <div id="sidebar-drawing" class="sidebar-section" style="display:none;">
+                        <h4>색칠/그리기 방식</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('drawing', 'color_theme')">🎨 창의력 테마 색칠</li>
+                            <li onclick="setSubCategory('drawing', 'color_number')">🔢 번호 맞춤 색칠</li>
+                            <li onclick="setSubCategory('drawing', 'color_math')">➕ 연산 색칠 (더하기·빼기)</li>
+                            <li onclick="setSubCategory('drawing', 'color_dots')">✨ 점 이어 그리기</li>
+                            <li onclick="setSubCategory('drawing', 'draw_symmetry')">🦋 반쪽 대칭 그리기</li>
+                            <li onclick="setSubCategory('drawing', 'draw_grid')">📐 모눈종이 보고 그리기</li>
+                            <li onclick="setSubCategory('drawing', 'draw_step')">🪜 4단계 그림 교실</li>
+                            <li onclick="setSubCategory('drawing', 'draw_creative')">💡 상상 스토리텔링</li>
+                            <li onclick="setSubCategory('drawing', 'color_word')">📝 낱말 쓰고 색칠하기</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>도안 선택</label>
+                            <select id="drawing-select" class="form-select" onchange="refreshContent()">
+                                <optgroup label="동물 친구들">
+                                    <option value="cat" selected>귀여운 고양이 🐱</option>
+                                    <option value="dog">장난꾸러기 강아지 🐶</option>
+                                    <option value="lion">멋진 사자 🦁</option>
+                                    <option value="rabbit">깡충깡충 토끼 🐰</option>
+                                </optgroup>
+                                <optgroup label="신비한 공룡">
+                                    <option value="dino">아기 공룡 🦖</option>
+                                </optgroup>
+                                <optgroup label="씽씽 탈것">
+                                    <option value="rocket">우주 로켓 🚀</option>
+                                    <option value="car">씽씽 자동차 🚗</option>
+                                </optgroup>
+                                <optgroup label="자연과 디저트">
+                                    <option value="flower">예쁜 해바라기 🌻</option>
+                                    <option value="icecream">달콤 아이스크림 🍦</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label>외곽선 굵기</label>
+                            <select id="drawing-stroke" class="form-select" onchange="refreshContent()">
+                                <option value="2">가느다란 선 (2px)</option>
+                                <option value="3" selected>보통 선 (3px - 기본)</option>
+                                <option value="4.5">도톰한 선 (4.5px)</option>
+                                <option value="6">아주 굵은 선 (6px - 유아용)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label>미니 완성 견본</label>
+                            <select id="drawing-guide" class="form-select" onchange="refreshContent()">
+                                <option value="yes" selected>완성 견본 표시 (추천)</option>
+                                <option value="no">견본 숨기기</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- English Word Sub-categories -->
+                    <div id="sidebar-english" class="sidebar-section" style="display:none;">
+                        <h4>영단어 카테고리 (Junior 123~145)</h4>
+                        <ul class="sub-menu" style="max-height: 440px; overflow-y: auto;">
+                            <li onclick="setSubCategory('english', 'junior123')">Junior 123</li>
+                            <li onclick="setSubCategory('english', 'junior124')">Junior 124</li>
+                            <li onclick="setSubCategory('english', 'junior125')">Junior 125</li>
+                            <li onclick="setSubCategory('english', 'junior126')">Junior 126</li>
+                            <li onclick="setSubCategory('english', 'junior127')">Junior 127</li>
+                            <li onclick="setSubCategory('english', 'junior128')">Junior 128</li>
+                            <li onclick="setSubCategory('english', 'junior129')">Junior 129</li>
+                            <li onclick="setSubCategory('english', 'junior130')">Junior 130</li>
+                            <li onclick="setSubCategory('english', 'junior131')">Junior 131</li>
+                            <li onclick="setSubCategory('english', 'junior132')">Junior 132</li>
+                            <li onclick="setSubCategory('english', 'junior133')">Junior 133</li>
+                            <li onclick="setSubCategory('english', 'junior134')">Junior 134</li>
+                            <li onclick="setSubCategory('english', 'junior135')">Junior 135</li>
+                            <li onclick="setSubCategory('english', 'junior136')">Junior 136</li>
+                            <li onclick="setSubCategory('english', 'junior137')">Junior 137</li>
+                            <li onclick="setSubCategory('english', 'junior138')">Junior 138</li>
+                            <li onclick="setSubCategory('english', 'junior139')">Junior 139</li>
+                            <li onclick="setSubCategory('english', 'junior140')">Junior 140</li>
+                            <li onclick="setSubCategory('english', 'junior141')">Junior 141</li>
+                            <li onclick="setSubCategory('english', 'junior142')">Junior 142</li>
+                            <li onclick="setSubCategory('english', 'junior143')">Junior 143</li>
+                            <li onclick="setSubCategory('english', 'junior144')">Junior 144</li>
+                            <li class="active" onclick="setSubCategory('english', 'junior145')">Junior 145</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>영어 글꼴</label>
+                            <select id="select-sidebar-eng-font" class="form-select" onchange="onSidebarEngFontChange(this.value)">
+                                <option value="ABeeZee">ABeeZee (추천)</option>
+                                <option value="Schoolbell">Schoolbell (연필글씨)</option>
+                                <option value="ComicNeue">Comic Neue (캐주얼)</option>
+                                <option value="Inter">기본 산스 (Inter)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Alphabet Writing Sub-categories -->
+                    <div id="sidebar-alphabet" class="sidebar-section" style="display:none;">
+                        <h4>알파벳 쓰기 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('alphabet', 'upper_am')">대문자 기초 (A-M)</li>
+                            <li onclick="setSubCategory('alphabet', 'upper_nz')">대문자 완성 (N-Z)</li>
+                            <li onclick="setSubCategory('alphabet', 'lower_am')">소문자 기초 (a-m)</li>
+                            <li onclick="setSubCategory('alphabet', 'lower_nz')">소문자 완성 (n-z)</li>
+                            <li onclick="setSubCategory('alphabet', 'mixed_am')">대소문자 기초 (Aa-Mm)</li>
+                            <li onclick="setSubCategory('alphabet', 'mixed_nz')">대소문자 완성 (Nn-Zz)</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>알파벳 글꼴</label>
+                            <select id="select-sidebar-alpha-font" class="form-select" onchange="onSidebarEngFontChange(this.value)">
+                                <option value="ABeeZee">ABeeZee (추천)</option>
+                                <option value="Schoolbell">Schoolbell (연필글씨)</option>
+                                <option value="ComicNeue">Comic Neue (캐주얼)</option>
+                                <option value="Inter">기본 산스 (Inter)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Daily Study Settings -->
+                    <div id="sidebar-daily" class="sidebar-section" style="display:none;">
+                        <h4>일일학습 범위 설정</h4>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">한자 급수</label>
+                            <div style="display: flex; flex-direction: column; gap: 5px; font-size: 0.85em;">
+                                <label><input type="checkbox" id="daily-hanja-8" onchange="refreshContent()"> 한자 8급</label>
+                                <label><input type="checkbox" id="daily-hanja-7" onchange="refreshContent()"> 한자 7급</label>
+                                <label><input type="checkbox" id="daily-hanja-6" onchange="refreshContent()"> 한자 6급</label>
+                                <label><input type="checkbox" id="daily-hanja-jun5" onchange="refreshContent()"> 한자 준5급</label>
+                                <label><input type="checkbox" id="daily-hanja-5" onchange="refreshContent()"> 한자 5급</label>
+                                <label><input type="checkbox" id="daily-hanja-jun4" checked onchange="refreshContent()"> 한자 준4급</label>
+                                <label><input type="checkbox" id="daily-hanja-4" onchange="refreshContent()"> 한자 4급</label>
+                                <label><input type="checkbox" id="daily-hanja-jun3" onchange="refreshContent()"> 한자 준3급</label>
+                                <label><input type="checkbox" id="daily-hanja-3" onchange="refreshContent()"> 한자 3급</label>
+                            </div>
+                        </div>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">사자성어 급수</label>
+                            <div style="display: flex; flex-direction: column; gap: 5px; font-size: 0.85em;">
+                                <label><input type="checkbox" id="daily-gosa-jun4" checked onchange="refreshContent()"> 준4급 사자성어</label>
+                                <label><input type="checkbox" id="daily-gosa-4" onchange="refreshContent()"> 4급 사자성어</label>
+                            </div>
+                        </div>
+                        <div class="sidebar-item">
+                            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+                                <label style="font-size: 0.9em; margin-bottom: 0; display: block; font-weight: 600;">영어 레슨 (123~145)</label>
+                                <div style="display: flex; gap: 4px;">
+                                    <button type="button" onclick="toggleAllDailyEng(true)" style="padding: 2px 6px; font-size: 0.72rem; border-radius: 4px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer; color: var(--text-main);">전체</button>
+                                    <button type="button" onclick="toggleAllDailyEng(false)" style="padding: 2px 6px; font-size: 0.72rem; border-radius: 4px; border: 1px solid #cbd5e1; background: #fff; cursor: pointer; color: var(--text-main);">해제</button>
+                                </div>
+                            </div>
+                            <div class="daily-eng-grid">
+                                <label><input type="checkbox" id="daily-eng-123" checked onchange="refreshContent()"> Junior 123</label>
+                                <label><input type="checkbox" id="daily-eng-124" checked onchange="refreshContent()"> Junior 124</label>
+                                <label><input type="checkbox" id="daily-eng-125" checked onchange="refreshContent()"> Junior 125</label>
+                                <label><input type="checkbox" id="daily-eng-126" checked onchange="refreshContent()"> Junior 126</label>
+                                <label><input type="checkbox" id="daily-eng-127" checked onchange="refreshContent()"> Junior 127</label>
+                                <label><input type="checkbox" id="daily-eng-128" checked onchange="refreshContent()"> Junior 128</label>
+                                <label><input type="checkbox" id="daily-eng-129" checked onchange="refreshContent()"> Junior 129</label>
+                                <label><input type="checkbox" id="daily-eng-130" checked onchange="refreshContent()"> Junior 130</label>
+                                <label><input type="checkbox" id="daily-eng-131" checked onchange="refreshContent()"> Junior 131</label>
+                                <label><input type="checkbox" id="daily-eng-132" checked onchange="refreshContent()"> Junior 132</label>
+                                <label><input type="checkbox" id="daily-eng-133" checked onchange="refreshContent()"> Junior 133</label>
+                                <label><input type="checkbox" id="daily-eng-134" checked onchange="refreshContent()"> Junior 134</label>
+                                <label><input type="checkbox" id="daily-eng-135" checked onchange="refreshContent()"> Junior 135</label>
+                                <label><input type="checkbox" id="daily-eng-136" checked onchange="refreshContent()"> Junior 136</label>
+                                <label><input type="checkbox" id="daily-eng-137" checked onchange="refreshContent()"> Junior 137</label>
+                                <label><input type="checkbox" id="daily-eng-138" checked onchange="refreshContent()"> Junior 138</label>
+                                <label><input type="checkbox" id="daily-eng-139" checked onchange="refreshContent()"> Junior 139</label>
+                                <label><input type="checkbox" id="daily-eng-140" checked onchange="refreshContent()"> Junior 140</label>
+                                <label><input type="checkbox" id="daily-eng-141" checked onchange="refreshContent()"> Junior 141</label>
+                                <label><input type="checkbox" id="daily-eng-142" checked onchange="refreshContent()"> Junior 142</label>
+                                <label><input type="checkbox" id="daily-eng-143" checked onchange="refreshContent()"> Junior 143</label>
+                                <label><input type="checkbox" id="daily-eng-144" checked onchange="refreshContent()"> Junior 144</label>
+                                <label><input type="checkbox" id="daily-eng-145" checked onchange="refreshContent()"> Junior 145</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Zombie / Wun Study Settings -->
+                    <div id="sidebar-zombie" class="sidebar-section" style="display:none;">
+                        <h4>일일학습 범위 설정</h4>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">숫자 공부 범위</label>
+                            <select id="zombie-number-range" class="form-select" onchange="refreshContent()">
+                                <option value="1_10" selected>1부터 10까지 (기초)</option>
+                                <option value="1_20">1부터 20까지 (심화)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">알파벳 쓰기</label>
+                            <select id="zombie-alphabet-mode" class="form-select" onchange="refreshContent()">
+                                <option value="upper" selected>대문자 따라쓰기 (A ~ Z)</option>
+                                <option value="lower">소문자 따라쓰기 (a ~ z)</option>
+                                <option value="mixed">대소문자 함께 (Aa ~ Zz)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">시계 공부</label>
+                            <select id="zombie-clock-type" class="form-select" onchange="refreshContent()">
+                                <option value="hour" selected>정각 보기 (1시, 2시...)</option>
+                                <option value="half">30분 포함 (1시, 1시 30분...)</option>
+                                <option value="draw">시계바늘 그리기 (정각)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">한글 낱말 쓰기</label>
+                            <select id="zombie-hangeul-type" class="form-select" onchange="refreshContent()">
+                                <option value="all" selected>골고루 섞어보기 (사과, 토끼...)</option>
+                                <option value="animals">동물 친구들 (토끼, 사자, 오리...)</option>
+                                <option value="fruits">과일·음식 (사과, 포도, 우유...)</option>
+                                <option value="things">탈것·사물 (로켓, 모자, 시계...)</option>
+                                <option value="nature">자연·가족 (하늘, 바다, 엄마...)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item" style="margin-bottom: 10px;">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">한글 글꼴</label>
+                            <select id="select-sidebar-zombie-kor-font" class="form-select" onchange="onSidebarKorFontChange(this.value)">
+                                <option value="NanumBarunpen">나눔바른펜 (추천)</option>
+                                <option value="GowunBatang">교과서 정자체</option>
+                                <option value="GowunDodum">바른 교재체</option>
+                                <option value="Gaegu">개구체 (손글씨)</option>
+                                <option value="NanumGothic">표준 고딕</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">영어·숫자 글꼴</label>
+                            <select id="select-sidebar-zombie-eng-font" class="form-select" onchange="onSidebarEngFontChange(this.value)">
+                                <option value="ABeeZee">ABeeZee (추천)</option>
+                                <option value="Schoolbell">Schoolbell (연필글씨)</option>
+                                <option value="ComicNeue">Comic Neue (캐주얼)</option>
+                                <option value="Inter">기본 산스 (Inter)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Calendar Settings -->
+                    <div id="sidebar-calendar" class="sidebar-section" style="display:none;">
+                        <h4>달력 설정</h4>
+                        <div class="sidebar-item">
+                            <label>년도 선택</label>
+                            <select id="calendar-year-select" class="form-select" onchange="refreshContent()">
+                                <!-- Options will be dynamically populated by calendar.js -->
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label>월 선택</label>
+                            <select id="calendar-month-select" class="form-select" onchange="refreshContent()">
+                                <!-- Options will be dynamically populated by calendar.js -->
+                            </select>
+                        </div>
+                        <div class="sidebar-item" style="margin-top: 15px;">
+                            <label>메모 초기화</label>
+                            <button class="btn btn-outline w-100" onclick="clearCalendarNotes()" style="border-color: #ef4444; color: #ef4444; font-size: 0.9rem;">
+                                <i class="fas fa-trash-alt"></i> 메모 전체 삭제
+                            </button>
+                        </div>
+                        <div class="sidebar-divider" style="margin: 1rem 0;"></div>
+                        <p style="font-size: 0.8rem; color: var(--text-muted); line-height: 1.4;">
+                            <i class="fas fa-info-circle"></i> 각 날짜 칸을 클릭해 일정을 직접 타핑할 수 있습니다. 작성한 메모는 브라우저에 자동 저장됩니다.
+                        </p>
+                    </div>
+
+                    <!-- Clock Settings -->
+                    <div id="sidebar-clock" class="sidebar-section" style="display:none;">
+                        <h4>시계 공부 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('clock', 'read_clock')">시계 읽기 (시/분 적기)</li>
+                            <li onclick="setSubCategory('clock', 'draw_hands')">시계바늘 그리기</li>
+                            <li onclick="setSubCategory('clock', 'mixed')">혼합 퀴즈</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>시간 단위 (난이도)</label>
+                            <select id="clock-diff-select" class="form-select" onchange="refreshContent()">
+                                <option value="hour">정각 단위 (1시, 2시...)</option>
+                                <option value="half" selected>30분 단위 (1시 30분...)</option>
+                                <option value="five_min">5분 단위 (3시 25분...)</option>
+                                <option value="one_min">1분 단위 (정밀 시계)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Multiplication Settings -->
+                    <div id="sidebar-multiplication" class="sidebar-section" style="display:none;">
+                        <h4>구구단 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('multiplication', 'shuffle')">셔플 퀴즈</li>
+                            <li onclick="setSubCategory('multiplication', 'blank')">빈칸 채우기</li>
+                            <li onclick="setSubCategory('multiplication', 'dan_practice')">단별 순서 외우기</li>
+                            <li onclick="setSubCategory('multiplication', 'table')">곱셈구구표 완성하기</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>단 선택</label>
+                            <select id="multi-dan-select" class="form-select" onchange="refreshContent()">
+                                <option value="all">전체 (2~9단 골고루)</option>
+                                <option value="2">2단</option>
+                                <option value="3">3단</option>
+                                <option value="4">4단</option>
+                                <option value="5">5단</option>
+                                <option value="6">6단</option>
+                                <option value="7">7단</option>
+                                <option value="8">8단</option>
+                                <option value="9">9단</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item" id="multi-count-item">
+                            <label>문제 수 (페이지 여백 조절)</label>
+                            <select id="multi-count-select" class="form-select" onchange="refreshContent()">
+                                <option value="28" selected>28문제 (A4 알맞게 꽉 채움)</option>
+                                <option value="32">32문제 (알차게 많이 풀기)</option>
+                                <option value="24">24문제 (큼직큼직하게)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Maze Settings -->
+                    <div id="sidebar-maze" class="sidebar-section" style="display:none;">
+                        <h4>미로 찾기 난이도</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('maze', 'easy')">쉬운 미로 (2개 수록)</li>
+                            <li onclick="setSubCategory('maze', 'medium')">보통 미로 (표준)</li>
+                            <li onclick="setSubCategory('maze', 'hard')">도전 미로 (어려움)</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>테마 선택</label>
+                            <select id="maze-theme-select" class="form-select" onchange="refreshContent()">
+                                <option value="puppy">🐶 강아지와 뼈다귀</option>
+                                <option value="space">🚀 우주선과 행성</option>
+                                <option value="mouse">🐭 아기 생쥐와 치즈</option>
+                                <option value="bee">🐝 꿀벌과 꽃</option>
+                                <option value="car">🚗 자동차와 우리집</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Custom Text Settings -->
+                    <div id="sidebar-customtext" class="sidebar-section" style="display:none;">
+                        <h4>맞춤 쓰기 카테고리</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('customtext', 'sentence')">10칸 깍두기 문장 쓰기</li>
+                            <li onclick="setSubCategory('customtext', 'word')">낱말 쓰기 연습</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>예시 문장 불러오기</label>
+                            <select id="custom-preset-select" class="form-select" onchange="applyCustomPreset()">
+                                <option value="family">우리 가족 사랑</option>
+                                <option value="spring">봄비와 새싹</option>
+                                <option value="habit">바른 생활 습관</option>
+                                <option value="school">즐거운 학교 생활</option>
+                                <option value="words">필수 낱말 모음</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label>직접 글자 입력 (줄바꿈 구분)</label>
+                            <textarea id="custom-input-text" class="form-select" style="width: 100%; height: 90px; resize: vertical; font-size: 0.85rem; line-height: 1.4;" onchange="refreshContent()" onkeyup="refreshContent()">우리 가족은 서로 사랑하고 항상 배려해요.
+함께 웃는 매일이 참 행복합니다.</textarea>
+                        </div>
+                        <div class="sidebar-item">
+                            <label>가이드 스타일</label>
+                            <select id="custom-guide-style" class="form-select" onchange="refreshContent()">
+                                <option value="cross" selected>십자 점선 가이드</option>
+                                <option value="simple">사각 테두리만</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Blank Practice Settings -->
+                    <div id="sidebar-blank-practice" class="sidebar-section" style="display:none;">
+                        <h4>연습장 양식 선택</h4>
+                        <ul class="sub-menu">
+                            <li class="active" onclick="setSubCategory('blank_practice', 'hangeul_10')">🇰🇷 한글 10칸 깍두기</li>
+                            <li onclick="setSubCategory('blank_practice', 'hangeul_8')">🇰🇷 한글 8칸 깍두기 (유치/저학년)</li>
+                            <li onclick="setSubCategory('blank_practice', 'hangeul_line')">🇰🇷 한글 국어 줄공책</li>
+                            <li onclick="setSubCategory('blank_practice', 'english_wide')">🔤 영어 4선 노트 (넓은 줄)</li>
+                            <li onclick="setSubCategory('blank_practice', 'english_std')">🔤 영어 4선 노트 (표준 간격)</li>
+                            <li onclick="setSubCategory('blank_practice', 'english_box')">🔤 영어 낱말 칸 쓰기</li>
+                            <li onclick="setSubCategory('blank_practice', 'hanja_table')">🀄 한자 단어 쓰기장 (표 양식)</li>
+                            <li onclick="setSubCategory('blank_practice', 'hanja_grid')">🀄 한자 십자격자 공책</li>
+                            <li onclick="setSubCategory('blank_practice', 'hanja_mi')">🀄 한자 米자격자 공책</li>
+                            <li onclick="setSubCategory('blank_practice', 'math_grid')">📐 방안 모눈종이 (1cm)</li>
+                        </ul>
+                        <div class="sidebar-divider"></div>
+                        <div class="sidebar-item">
+                            <label>보조선 가이드 스타일</label>
+                            <select id="blank-guide-select" class="form-select" onchange="refreshContent()">
+                                <option value="dashed" selected>십자 점선 (기본 추천)</option>
+                                <option value="light">연한 점선</option>
+                                <option value="solid">실선 보조선</option>
+                                <option value="none">보조선 숨김 (민칸)</option>
+                            </select>
+                        </div>
+                        <div class="sidebar-item">
+                            <label>상단 정보란 (학번 / 성명)</label>
+                            <select id="blank-header-select" class="form-select" onchange="refreshContent()">
+                                <option value="yes" selected>정보 입력란 표시</option>
+                                <option value="no">정보 입력란 숨기기</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="sidebar-footer">
+                        <button class="btn btn-outline w-100" onclick="refreshContent()"><i class="fas fa-sync"></i> 새로고침</button>
+                    </div>
+                </aside>
+
+                <div class="preview-area">
+                    <div class="paper" id="printable-area">
+                        <div class="worksheet-header">
+                            <div class="worksheet-title" id="sheet-title">학습지 제목</div>
+                            <div class="user-info-area">
+                                <div class="info-item" style="font-size: 0.95rem; font-weight: 700; white-space: nowrap;"><span style="white-space: nowrap;">날짜:</span> <div class="info-line" style="min-width: 170px; width: auto; padding: 0 8px; border-bottom: 2px solid #cbd5e1; text-align: center; white-space: nowrap;"><span id="sheet-date" style="font-size: 0.95rem; font-weight: 700; color: var(--text-main); white-space: nowrap;"></span></div></div>
+                            </div>
+                        </div>
+                        <div id="sheet-content"></div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Data scripts -->
+    <script src="assets/hanja_8.js?v=2"></script>
+    <script src="assets/hanja_7.js?v=2"></script>
+    <script src="assets/hanja_6.js?v=2"></script>
+    <script src="assets/hanja_jun5.js?v=2"></script>
+    <script src="assets/gosa.js?v=2"></script>
+    <script src="assets/gosa_jun4.js?v=2"></script>
+    <script src="assets/gosa_4.js?v=2"></script>
+    <script src="assets/hanja_5.js?v=2"></script>
+    <script src="assets/hanja_jun4.js?v=2"></script>
+    <script src="assets/hanja_4.js?v=2"></script>
+    <script src="assets/hanja_jun3.js?v=2"></script>
+    <script src="assets/hanja_3.js?v=2"></script>
+    
+    <!-- Generators -->
+    <script src="scripts/math.js"></script>
+    <script src="scripts/writing.js"></script>
+    <script src="scripts/drawing.js"></script>
+    <script src="scripts/tracing.js"></script>
+    <script src="scripts/english.js"></script>
+    <script src="scripts/alphabet.js"></script>
+    <script src="scripts/calendar.js"></script>
+    <script src="scripts/clock.js"></script>
+    <script src="scripts/multiplication.js"></script>
+    <script src="scripts/maze.js"></script>
+    <script src="scripts/custom_text.js"></script>
+    <script src="scripts/hangeul_word.js"></script>
+    <script src="scripts/blank_practice.js"></script>
+    
+    <script src="assets/english_junior123.js"></script>
+    <script src="assets/english_junior124.js"></script>
+    <script src="assets/english_junior125.js"></script>
+    <script src="assets/english_junior126.js"></script>
+    <script src="assets/english_junior127.js"></script>
+    <script src="assets/english_junior128.js"></script>
+    <script src="assets/english_junior129.js"></script>
+    <script src="assets/english_junior130.js"></script>
+    <script src="assets/english_junior131.js"></script>
+    <script src="assets/english_junior132.js"></script>
+    <script src="assets/english_junior133.js"></script>
+    <script src="assets/english_junior134.js"></script>
+    <script src="assets/english_junior135.js"></script>
+    <script src="assets/english_junior136.js"></script>
+    <script src="assets/english_junior137.js"></script>
+    <script src="assets/english_junior138.js"></script>
+    <script src="assets/english_junior139.js"></script>
+    <script src="assets/english_junior140.js"></script>
+    <script src="assets/english_junior141.js"></script>
+    <script src="assets/english_junior142.js"></script>
+    <script src="assets/english_junior143.js"></script>
+    <script src="assets/english_junior144.js"></script>
+    <script src="assets/english_junior145.js"></script>
+    <!-- Settings Modal -->
+    <div id="settings-modal" class="modal-overlay" style="display: none;" onclick="if(event.target===this) closeSettingsModal()">
+        <div class="modal-card">
+            <div class="modal-header">
+                <h3><i class="fas fa-sliders-h" style="color: var(--primary);"></i> 글꼴 및 따라쓰기 환경설정</h3>
+                <button class="modal-close-btn" onclick="closeSettingsModal()">&times;</button>
+            </div>
+            <div class="modal-body">
+                <p class="modal-desc">한글 및 영어 따라쓰기 학습지에 적용할 글꼴과 가이드라인 스타일을 선택하세요. 설정 내용은 브라우저에 자동 저장되어 다음 접속 시에도 유지됩니다.</p>
+                
+                <div class="settings-group">
+                    <label class="settings-label"><i class="fas fa-pen-fancy" style="color: var(--primary);"></i> 한글 따라쓰기 글꼴</label>
+                    <div class="settings-options-grid">
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-hangeul-font" value="NanumBarunpen" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">나눔바른펜 <span class="badge-rec">추천</span></span>
+                                <span class="option-sample" style="font-family: 'NanumBarunpen', sans-serif;">동해물과 백두산이 마르고 닳도록</span>
+                                <span class="option-note">연필 손글씨 정석, 획순과 바른글씨 연습에 최적화</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-hangeul-font" value="GowunBatang" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">교과서 정자체 (고운바탕)</span>
+                                <span class="option-sample" style="font-family: 'Gowun Batang', serif;">동해물과 백두산이 마르고 닳도록</span>
+                                <span class="option-note">단정하고 품격 있는 초등 국어 교과서 스타일</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-hangeul-font" value="GowunDodum" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">바른 교재체 (고운돋움)</span>
+                                <span class="option-sample" style="font-family: 'Gowun Dodum', sans-serif;">동해물과 백두산이 마르고 닳도록</span>
+                                <span class="option-note">부드럽고 또박또박한 학습지 표준 정자체</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-hangeul-font" value="Gaegu" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">개구체 (어린이 손글씨)</span>
+                                <span class="option-sample" style="font-family: 'Gaegu', cursive;">동해물과 백두산이 마르고 닳도록</span>
+                                <span class="option-note">자연스럽고 친근한 어린이 손글씨 스타일</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-hangeul-font" value="NanumGothic" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">표준 고딕 (나눔고딕)</span>
+                                <span class="option-sample" style="font-family: 'Nanum Gothic', sans-serif;">동해물과 백두산이 마르고 닳도록</span>
+                                <span class="option-note">기본 깔끔한 정석 고딕 활자체</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-group" style="margin-top: 18px;">
+                    <label class="settings-label"><i class="fas fa-font" style="color: var(--accent-pink);"></i> 영어 따라쓰기 글꼴</label>
+                    <div class="settings-options-grid">
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-english-font" value="ABeeZee" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">ABeeZee <span class="badge-rec">추천</span></span>
+                                <span class="option-sample" style="font-family: 'ABeeZee', sans-serif;">Aa Bb Gg Qq 123 - Primary Print</span>
+                                <span class="option-note">초등 교육 표준, 소문자 a, g 단층 손글씨 정석</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-english-font" value="Schoolbell" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">Schoolbell (교실 연필글씨)</span>
+                                <span class="option-sample" style="font-family: 'Schoolbell', cursive;">Aa Bb Gg Qq 123 - Classroom Pencil</span>
+                                <span class="option-note">미국 초등학교 유인물 및 칠판 연필 손글씨</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-english-font" value="ComicNeue" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">Comic Neue (캐주얼 라운드)</span>
+                                <span class="option-sample" style="font-family: 'Comic Neue', cursive;">Aa Bb Gg Qq 123 - Round Print</span>
+                                <span class="option-note">동글동글하고 일정한 굵기의 친근한 손글씨체</span>
+                            </div>
+                        </label>
+                        <label class="settings-option-card">
+                            <input type="radio" name="setting-english-font" value="Inter" onchange="updateSettingsPreview()">
+                            <div class="option-content">
+                                <span class="option-title">기본 산스 (Inter)</span>
+                                <span class="option-sample" style="font-family: 'Inter', sans-serif;">Aa Bb Gg Qq 123 - Modern Sans</span>
+                                <span class="option-note">현대적이고 반듯한 기본 인쇄 활자체</span>
+                            </div>
+                        </label>
+                    </div>
+                </div>
+
+                <div class="settings-group" style="margin-top: 18px;">
+                    <label class="settings-label"><i class="fas fa-magic" style="color: var(--accent-yellow);"></i> 따라쓰기 가이드 스타일</label>
+                    <div class="settings-style-pills">
+                        <label class="style-pill">
+                            <input type="radio" name="setting-trace-style" value="solid" onchange="updateSettingsPreview()">
+                            <span class="pill-label">◽ 연한 회색 실선 (기본)</span>
+                        </label>
+                        <label class="style-pill">
+                            <input type="radio" name="setting-trace-style" value="outline" onchange="updateSettingsPreview()">
+                            <span class="pill-label">⭕ 속 빈 외곽선 (색칠/아웃라인)</span>
+                        </label>
+                        <label class="style-pill">
+                            <input type="radio" name="setting-trace-style" value="pattern" onchange="updateSettingsPreview()">
+                            <span class="pill-label">░ 패턴 가이드 (빗살 질감)</span>
+                        </label>
+                    </div>
+                </div>
+
+                <!-- 실시간 미리보기 박스 -->
+                <div class="settings-preview-box">
+                    <div class="preview-header">
+                        <span><i class="fas fa-eye"></i> 실시간 미리보기</span>
+                        <span id="preview-status-text">현재 선택된 스타일</span>
+                    </div>
+                    <div class="preview-content">
+                        <div class="preview-row">
+                            <div class="preview-cell"><span id="preview-hangeul">가나다</span></div>
+                            <div class="preview-cell"><span id="preview-english">Aa Bb</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-outline" onclick="resetStudySettings()">기본값 복원</button>
+                <div style="display: flex; gap: 8px;">
+                    <button class="btn btn-outline" onclick="closeSettingsModal()">취소</button>
+                    <button class="btn btn-primary" onclick="submitStudySettings()"><i class="fas fa-check"></i> 설정 저장하기</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js?v=6"></script>
+</body>
+</html>

@@ -1,0 +1,22 @@
+var HANJA_6_DATA = [
+  { "character": "犬", "hoon": "개", "eum": "견" },
+  { "character": "己", "hoon": "몸", "eum": "기" },
+  { "character": "林", "hoon": "수풀", "eum": "림" },
+  { "character": "馬", "hoon": "말", "eum": "마" },
+  { "character": "名", "hoon": "이름", "eum": "명" },
+  { "character": "百", "hoon": "일백", "eum": "백" },
+  { "character": "生", "hoon": "날", "eum": "생" },
+  { "character": "石", "hoon": "돌", "eum": "석" },
+  { "character": "先", "hoon": "먼저", "eum": "선" },
+  { "character": "姓", "hoon": "성씨", "eum": "성" },
+  { "character": "心", "hoon": "마음", "eum": "심" },
+  { "character": "羊", "hoon": "양", "eum": "양" },
+  { "character": "魚", "hoon": "물고기", "eum": "어" },
+  { "character": "玉", "hoon": "구슬", "eum": "옥" },
+  { "character": "牛", "hoon": "소", "eum": "우" },
+  { "character": "耳", "hoon": "귀", "eum": "이" },
+  { "character": "地", "hoon": "땅", "eum": "지" },
+  { "character": "川", "hoon": "내", "eum": "천" },
+  { "character": "千", "hoon": "일천", "eum": "천" },
+  { "character": "天", "hoon": "하늘", "eum": "천" }
+];

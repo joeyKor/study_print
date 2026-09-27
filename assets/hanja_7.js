@@ -1,0 +1,22 @@
+var HANJA_7_DATA = [
+  { "character": "江", "hoon": "강", "eum": "강" },
+  { "character": "口", "hoon": "입", "eum": "구" },
+  { "character": "內", "hoon": "안", "eum": "내" },
+  { "character": "年", "hoon": "해", "eum": "년" },
+  { "character": "大", "hoon": "큰", "eum": "대" },
+  { "character": "目", "hoon": "눈", "eum": "목" },
+  { "character": "白", "hoon": "흰", "eum": "백" },
+  { "character": "山", "hoon": "메(뫼)", "eum": "산" },
+  { "character": "上", "hoon": "위", "eum": "상" },
+  { "character": "小", "hoon": "작을", "eum": "소" },
+  { "character": "手", "hoon": "손", "eum": "수" },
+  { "character": "外", "hoon": "바깥", "eum": "외" },
+  { "character": "右", "hoon": "오른", "eum": "우" },
+  { "character": "入", "hoon": "들", "eum": "입" },
+  { "character": "足", "hoon": "발", "eum": "족" },
+  { "character": "左", "hoon": "왼", "eum": "좌" },
+  { "character": "中", "hoon": "가운데", "eum": "중" },
+  { "character": "靑", "hoon": "푸를", "eum": "청" },
+  { "character": "出", "hoon": "날", "eum": "출" },
+  { "character": "下", "hoon": "아래", "eum": "하" }
+];
