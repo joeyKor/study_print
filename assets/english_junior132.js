@@ -2,906 +2,906 @@ var ENGLISH_JUNIOR132_DATA = [
   {
     "word": "physical",
     "meaning": "신체의",
-    "sentence": "This is very physical for all of us."
+    "sentence": "Physical exercise keeps your body healthy and strong."
   },
   {
     "word": "survey",
     "meaning": "조사하다",
-    "sentence": "It is important to survey carefully."
+    "sentence": "The school surveyed students about their lunch preferences."
   },
   {
     "word": "overall",
     "meaning": "전반적인",
-    "sentence": "This is very overall for all of us."
+    "sentence": "The overall test scores of our class improved."
   },
   {
     "word": "examine",
     "meaning": "조사하다, 검토하다",
-    "sentence": "It is important to examine carefully."
+    "sentence": "The doctor examined the patient's throat."
   },
   {
     "word": "average",
     "meaning": "평균 ~이 되다",
-    "sentence": "It is important to average carefully."
+    "sentence": "He averages eight hours of sleep every night."
   },
   {
     "word": "significantly",
     "meaning": "상당히",
-    "sentence": "She did the work significantly."
+    "sentence": "Traffic significantly decreased after the new road opened."
   },
   {
     "word": "nutrition",
     "meaning": "영양",
-    "sentence": "The nutrition is very useful here."
+    "sentence": "Good nutrition is essential for growing children."
   },
   {
     "word": "improved",
     "meaning": "개선된",
-    "sentence": "The improved is very useful here."
+    "sentence": "She has greatly improved her English writing skills."
   },
   {
     "word": "standard",
     "meaning": "수준",
-    "sentence": "The standard is very useful here."
+    "sentence": "The hotel maintains high standards of cleanliness."
   },
   {
     "word": "remain",
     "meaning": "유지되다",
-    "sentence": "It is important to remain carefully."
+    "sentence": "Please remain in the waiting room."
   },
   {
     "word": "stable",
     "meaning": "안정적인",
-    "sentence": "This is very stable for all of us."
+    "sentence": "The patient's condition is stable and recovering."
   },
   {
     "word": "recent",
     "meaning": "최근의",
-    "sentence": "This is very recent for all of us."
+    "sentence": "A recent news report highlighted climate change."
   },
   {
     "word": "raise",
     "meaning": "제기하다",
-    "sentence": "It is important to raise carefully."
+    "sentence": "Please raise your hand if you have a question."
   },
   {
     "word": "concern",
     "meaning": "우려, 걱정",
-    "sentence": "The concern is very useful here."
+    "sentence": "Parents expressed concern about children's screen time."
   },
   {
     "word": "obesity",
     "meaning": "비만",
-    "sentence": "The obesity is very useful here."
+    "sentence": "Eating too much junk food can lead to obesity."
   },
   {
     "word": "overweight",
     "meaning": "과체중의",
-    "sentence": "This is very overweight for all of us."
+    "sentence": "He started jogging because he was slightly overweight."
   },
   {
     "word": "previous",
     "meaning": "이전의",
-    "sentence": "This is very previous for all of us."
+    "sentence": "In our previous lesson, we learned about volcanoes."
   },
   {
     "word": "contributing factor",
     "meaning": "기여 요인",
-    "sentence": "We can learn how to use contributing factor."
+    "sentence": "Lack of sleep was a major contributing factor to his fatigue."
   },
   {
     "word": "vision",
     "meaning": "시력",
-    "sentence": "The vision is very useful here."
+    "sentence": "Carrots are good for maintaining clear vision."
   },
   {
     "word": "figure",
     "meaning": "수치",
-    "sentence": "The figure is very useful here."
+    "sentence": "The sales figures showed a big increase this month."
   },
   {
     "word": "uncorrected",
     "meaning": "교정되지 않은",
-    "sentence": "The uncorrected is very useful here."
+    "sentence": "Uncorrected poor vision can cause headaches."
   },
   {
     "word": "warn",
     "meaning": "경고하다",
-    "sentence": "It is important to warn carefully."
+    "sentence": "The lifeguard warned swimmers about high waves."
   },
   {
     "word": "famous for",
     "meaning": "~로 유명한",
-    "sentence": "This is very famous for for all of us."
+    "sentence": "Jeju Island is famous for delicious tangerines."
   },
   {
     "word": "unusual",
     "meaning": "특이한",
-    "sentence": "This is very unusual for all of us."
+    "sentence": "It is unusual to see snow in April here."
   },
   {
     "word": "read",
     "meaning": "읽히다",
-    "sentence": "The read is very useful here."
+    "sentence": "The sign reads 'Keep off the grass.'"
   },
   {
     "word": "a series of",
     "meaning": "일련의",
-    "sentence": "This is very a series of for all of us."
+    "sentence": "He wrote a series of exciting adventure books."
   },
   {
     "word": "developer",
     "meaning": "개발자",
-    "sentence": "The developer is very useful here."
+    "sentence": "The software developer created a useful learning app."
   },
   {
     "word": "despite",
     "meaning": "~에도 불구하고",
-    "sentence": "We can learn how to use despite."
+    "sentence": "She arrived on time despite the heavy rain."
   },
   {
     "word": "eye-catching",
     "meaning": "눈길을 끄는",
-    "sentence": "This is very eye-catching for all of us."
+    "sentence": "The store put up an eye-catching poster in the window."
   },
   {
     "word": "mostly",
     "meaning": "대부분",
-    "sentence": "The mostly is very useful here."
+    "sentence": "The sky was mostly clear and sunny today."
   },
   {
     "word": "normal",
     "meaning": "평범한",
-    "sentence": "This is very normal for all of us."
+    "sentence": "It is completely normal to feel nervous before a test."
   },
   {
     "word": "official",
     "meaning": "공무원, 관계자",
-    "sentence": "The official is very useful here."
+    "sentence": "City officials inspected the new public park."
   },
   {
     "word": "face",
     "meaning": "직면하다",
-    "sentence": "It is important to face carefully."
+    "sentence": "We all face challenges as we grow up."
   },
   {
     "word": "brief",
     "meaning": "잠깐의",
-    "sentence": "This is very brief for all of us."
+    "sentence": "The principal gave a brief welcome message."
   },
   {
     "word": "double-take",
     "meaning": "다시 봄, 의아한 표정",
-    "sentence": "The double-take is very useful here."
+    "sentence": "I did a double-take when I saw my teacher at the mall."
   },
   {
     "word": "connection",
     "meaning": "관련성, 연결",
-    "sentence": "The connection is very useful here."
+    "sentence": "There is a strong connection between diet and mood."
   },
   {
     "word": "disbelief",
     "meaning": "불신",
-    "sentence": "The disbelief is very useful here."
+    "sentence": "He shook his head in disbelief at the magic trick."
   },
   {
     "word": "instead of",
     "meaning": "~ 대신에",
-    "sentence": "We can learn how to use instead of."
+    "sentence": "Let's drink fresh water instead of soda."
   },
   {
     "word": "bother",
     "meaning": "괴롭히다, 신경 쓰이게 하다",
-    "sentence": "It is important to bother carefully."
+    "sentence": "Please don't bother your brother while he is studying."
   },
   {
     "word": "identity",
     "meaning": "정체성",
-    "sentence": "The identity is very useful here."
+    "sentence": "Keep your personal identity secure online."
   },
   {
     "word": "lab-grown",
     "meaning": "실험실에서 배양된",
-    "sentence": "The lab-grown is very useful here."
+    "sentence": "Scientists are developing lab-grown meat to save resources."
   },
   {
     "word": "produce",
     "meaning": "생산하다",
-    "sentence": "It is important to produce carefully."
+    "sentence": "Bees produce sweet and golden honey."
   },
   {
     "word": "as a result",
     "meaning": "결과적으로",
-    "sentence": "We can learn how to use as a result."
+    "sentence": "He practiced every day; as a result, he won the game."
   },
   {
     "word": "price",
     "meaning": "가격",
-    "sentence": "The price is very useful here."
+    "sentence": "The price of gasoline went down this week."
   },
   {
     "word": "increase",
     "meaning": "증가하다",
-    "sentence": "It is important to increase carefully."
+    "sentence": "Regular reading will increase your knowledge."
   },
   {
     "word": "develop",
     "meaning": "개발하다",
-    "sentence": "It is important to develop carefully."
+    "sentence": "Scientists develop new technologies to help people."
   },
   {
     "word": "creative",
     "meaning": "창의적인",
-    "sentence": "This is very creative for all of us."
+    "sentence": "She has a very creative imagination."
   },
   {
     "word": "solution",
     "meaning": "해결책",
-    "sentence": "The solution is very useful here."
+    "sentence": "We worked together to find a peaceful solution."
   },
   {
     "word": "nutrient",
     "meaning": "영양분",
-    "sentence": "The nutrient is very useful here."
+    "sentence": "Vegetables are packed with vital nutrients."
   },
   {
     "word": "multiply",
     "meaning": "증식하다",
-    "sentence": "It is important to multiply carefully."
+    "sentence": "Bacteria can multiply quickly in warm water."
   },
   {
     "word": "form",
     "meaning": "형성하다",
-    "sentence": "It is important to form carefully."
+    "sentence": "Water vapor cools down to form rain droplets."
   },
   {
     "word": "substance",
     "meaning": "물질",
-    "sentence": "The substance is very useful here."
+    "sentence": "Water is a clear liquid substance."
   },
   {
     "word": "process",
     "meaning": "과정",
-    "sentence": "The process is very useful here."
+    "sentence": "Learning a new language is a slow and rewarding process."
   },
   {
     "word": "dozen",
     "meaning": "12개",
-    "sentence": "The dozen is very useful here."
+    "sentence": "My mom bought a dozen fresh eggs at the market."
   },
   {
     "word": "announce",
     "meaning": "발표하다",
-    "sentence": "It is important to announce carefully."
+    "sentence": "The airline announced the boarding time."
   },
   {
     "word": "commercial",
     "meaning": "상업적인",
-    "sentence": "This is very commercial for all of us."
+    "sentence": "The airplane was flying on a commercial flight route."
   },
   {
     "word": "significant",
     "meaning": "중요한, 상당한",
-    "sentence": "This is very significant for all of us."
+    "sentence": "The invention of the wheel was a significant breakthrough."
   },
   {
     "word": "environmental",
     "meaning": "환경의",
-    "sentence": "This is very environmental for all of us."
+    "sentence": "Plastic recycling provides huge environmental benefits."
   },
   {
     "word": "benefit",
     "meaning": "이점",
-    "sentence": "The benefit is very useful here."
+    "sentence": "Regular exercise brings many health benefits."
   },
   {
     "word": "prevent",
     "meaning": "예방하다",
-    "sentence": "It is important to prevent carefully."
+    "sentence": "Seatbelts help prevent severe injuries in cars."
   },
   {
     "word": "destruction",
     "meaning": "파괴",
-    "sentence": "The destruction is very useful here."
+    "sentence": "The forest fire caused widespread destruction."
   },
   {
     "word": "reduce",
     "meaning": "줄이다",
-    "sentence": "The reduce is very useful here."
+    "sentence": "Turn off the faucet to reduce water waste."
   },
   {
     "word": "waste",
     "meaning": "폐기물",
-    "sentence": "The waste is very useful here."
+    "sentence": "Do not throw food waste into the regular bin."
   },
   {
     "word": "exhibition",
     "meaning": "전시회",
-    "sentence": "The exhibition is very useful here."
+    "sentence": "We visited a fascinating art exhibition downtown."
   },
   {
     "word": "illustrator",
     "meaning": "삽화가",
-    "sentence": "The illustrator is very useful here."
+    "sentence": "The illustrator drew beautiful pictures for the fairy tale."
   },
   {
     "word": "currently",
     "meaning": "현재",
-    "sentence": "The currently is very useful here."
+    "sentence": "The computer is currently downloading an update."
   },
   {
     "word": "creative",
     "meaning": "창의적인",
-    "sentence": "This is very creative for all of us."
+    "sentence": "She has a very creative imagination."
   },
   {
     "word": "simple",
     "meaning": "단순한",
-    "sentence": "This is very simple for all of us."
+    "sentence": "He gave a simple and clear explanation."
   },
   {
     "word": "warm",
     "meaning": "따뜻한",
-    "sentence": "This is very warm for all of us."
+    "sentence": "A warm bowl of soup feels great on a winter day."
   },
   {
     "word": "drawing",
     "meaning": "그림",
-    "sentence": "The drawing is very useful here."
+    "sentence": "She made a colorful drawing of a flower garden."
   },
   {
     "word": "feature",
     "meaning": "선보이다, 포함하다",
-    "sentence": "It is important to feature carefully."
+    "sentence": "The new phone features a waterproof screen."
   },
   {
     "word": "well-known",
     "meaning": "유명한",
-    "sentence": "This is very well-known for all of us."
+    "sentence": "The Beatles are a well-known rock band worldwide."
   },
   {
     "word": "receive",
     "meaning": "받다",
-    "sentence": "The receive is very useful here."
+    "sentence": "I was thrilled to receive a handwritten letter."
   },
   {
     "word": "touching",
     "meaning": "감동적인",
-    "sentence": "This is very touching for all of us."
+    "sentence": "The movie had a very touching and happy ending."
   },
   {
     "word": "comfort",
     "meaning": "위로하다",
-    "sentence": "It is important to comfort carefully."
+    "sentence": "A warm hug can comfort a crying friend."
   },
   {
     "word": "identity",
     "meaning": "정체",
-    "sentence": "The identity is very useful here."
+    "sentence": "Keep your personal identity secure online."
   },
   {
     "word": "hidden",
     "meaning": "숨겨진",
-    "sentence": "The hidden is very useful here."
+    "sentence": "There was a hidden treasure chest on the island."
   },
   {
     "word": "experience",
     "meaning": "경험",
-    "sentence": "The experience is very useful here."
+    "sentence": "Traveling gives you unforgettable life experience."
   },
   {
     "word": "memorable",
     "meaning": "기억할 만한",
-    "sentence": "This is very memorable for all of us."
+    "sentence": "Our summer family trip was truly memorable."
   },
   {
     "word": "miss",
     "meaning": "놓치다",
-    "sentence": "It is important to miss carefully."
+    "sentence": "Don't miss the bus or you will be late."
   },
   {
     "word": "explore",
     "meaning": "탐험하다",
-    "sentence": "It is important to explore carefully."
+    "sentence": "Let's explore the forest path this afternoon."
   },
   {
     "word": "unforgettable",
     "meaning": "잊을 수 없는",
-    "sentence": "This is very unforgettable for all of us."
+    "sentence": "Winning the championship was an unforgettable moment."
   },
   {
     "word": "be set to",
     "meaning": "~할 예정이다",
-    "sentence": "We can learn how to use be set to."
+    "sentence": "The new library is set to open next month."
   },
   {
     "word": "kick off",
     "meaning": "시작하다",
-    "sentence": "You should kick off every day."
+    "sentence": "The soccer match will kick off at three o'clock."
   },
   {
     "word": "iconic",
     "meaning": "상징적인",
-    "sentence": "This is very iconic for all of us."
+    "sentence": "The Sydney Opera House is an iconic landmark."
   },
   {
     "word": "tournament",
     "meaning": "대회",
-    "sentence": "The tournament is very useful here."
+    "sentence": "Our basketball team competed in the regional tournament."
   },
   {
     "word": "spread",
     "meaning": "퍼져 있다",
-    "sentence": "The spread is very useful here."
+    "sentence": "Butter the toast and spread jam on top."
   },
   {
     "word": "nation",
     "meaning": "국가",
-    "sentence": "The nation is very useful here."
+    "sentence": "Athletes from every nation marched in the Olympics."
   },
   {
     "word": "host",
     "meaning": "개최하다",
-    "sentence": "It is important to host carefully."
+    "sentence": "Paris will host the summer Olympic Games."
   },
   {
     "word": "opening game",
     "meaning": "개막전",
-    "sentence": "We can learn how to use opening game."
+    "sentence": "We bought tickets for the opening game of baseball season."
   },
   {
     "word": "opening ceremony",
     "meaning": "개막식",
-    "sentence": "We can learn how to use opening ceremony."
+    "sentence": "The opening ceremony featured brilliant fireworks."
   },
   {
     "word": "take place",
     "meaning": "열리다",
-    "sentence": "We can learn how to use take place."
+    "sentence": "The graduation ceremony will take place tomorrow."
   },
   {
     "word": "historic",
     "meaning": "역사적인",
-    "sentence": "This is very historic for all of us."
+    "sentence": "The signing of the peace treaty was a historic event."
   },
   {
     "word": "feat",
     "meaning": "위업",
-    "sentence": "The feat is very useful here."
+    "sentence": "Landing humans on the moon was an amazing feat."
   },
   {
     "word": "on one’s soil",
     "meaning": "자국에서",
-    "sentence": "We can learn how to use on one’s soil."
+    "sentence": "The World Cup was held on our soil for the first time."
   },
   {
     "word": "previously",
     "meaning": "이전에",
-    "sentence": "The previously is very useful here."
+    "sentence": "He previously lived in London before moving to Seoul."
   },
   {
     "word": "compete",
     "meaning": "경쟁하다 (battle)",
-    "sentence": "The compete is very useful here."
+    "sentence": "Ten schools will compete in the science quiz."
   },
   {
     "word": "increase",
     "meaning": "증가하다",
-    "sentence": "It is important to increase carefully."
+    "sentence": "Regular reading will increase your knowledge."
   },
   {
     "word": "face off against",
     "meaning": "~와 맞붙다",
-    "sentence": "We can learn how to use face off against."
+    "sentence": "Our team will face off against the reigning champions."
   },
   {
     "word": "defeat",
     "meaning": "이기다",
-    "sentence": "The defeat is very useful here."
+    "sentence": "They defeated the opposing team by two points."
   },
   {
     "word": "eager",
     "meaning": "열렬한",
-    "sentence": "This is very eager for all of us."
+    "sentence": "The eager students raised their hands right away."
   },
   {
     "word": "witness",
     "meaning": "목격하다",
-    "sentence": "It is important to witness carefully."
+    "sentence": "Thousands gathered to witness the solar eclipse."
   },
   {
     "word": "monk",
     "meaning": "승려",
-    "sentence": "The monk is very useful here."
+    "sentence": "A peaceful Buddhist monk walked along the garden."
   },
   {
     "word": "temple",
     "meaning": "사원",
-    "sentence": "The temple is very useful here."
+    "sentence": "We took off our shoes before entering the temple."
   },
   {
     "word": "join",
     "meaning": "참여하다",
-    "sentence": "It is important to join carefully."
+    "sentence": "You are welcome to join our reading circle."
   },
   {
     "word": "ordination",
     "meaning": "서품식",
-    "sentence": "The ordination is very useful here."
+    "sentence": "He attended the ordination ceremony of the new priest."
   },
   {
     "word": "take part in",
     "meaning": "참여하다",
-    "sentence": "You should take part in every day."
+    "sentence": "All students are encouraged to take part in sports day."
   },
   {
     "word": "religious",
     "meaning": "종교의",
-    "sentence": "This is very religious for all of us."
+    "sentence": "The holiday holds deep religious significance for many."
   },
   {
     "word": "ritual",
     "meaning": "의식",
-    "sentence": "The ritual is very useful here."
+    "sentence": "Bowing to elders on New Year's Day is a Korean ritual."
   },
   {
     "word": "bring together",
     "meaning": "모이게 하다",
-    "sentence": "You should bring together every day."
+    "sentence": "Music has the power to bring people together."
   },
   {
     "word": "attend",
     "meaning": "참석하다",
-    "sentence": "It is important to attend carefully."
+    "sentence": "Will you attend the birthday party tomorrow?"
   },
   {
     "word": "regularly",
     "meaning": "정기적으로",
-    "sentence": "The regularly is very useful here."
+    "sentence": "Brush your teeth regularly after every meal."
   },
   {
     "word": "courage",
     "meaning": "용기",
-    "sentence": "The courage is very useful here."
+    "sentence": "It takes courage to speak up against bullying."
   },
   {
     "word": "meaningful",
     "meaning": "의미 있는",
-    "sentence": "This is very meaningful for all of us."
+    "sentence": "Volunteering was a meaningful experience for me."
   },
   {
     "word": "happen",
     "meaning": "일어나다",
-    "sentence": "It is important to happen carefully."
+    "sentence": "Accidents can happen if you are not careful."
   },
   {
     "word": "on one’s way",
     "meaning": "~로 가는 길에",
-    "sentence": "We can learn how to use on one’s way."
+    "sentence": "He bought fresh bread on his way home from work."
   },
   {
     "word": "crowded",
     "meaning": "붐비는",
-    "sentence": "This is very crowded for all of us."
+    "sentence": "The subway was very crowded during rush hour."
   },
   {
     "word": "beat",
     "meaning": "뛰다",
-    "sentence": "The beat is very useful here."
+    "sentence": "My heart beat fast before the speech."
   },
   {
     "word": "give up",
     "meaning": "양보하다",
-    "sentence": "You should give up every day."
+    "sentence": "Never give up when facing difficult problems."
   },
   {
     "word": "be afraid of",
     "meaning": "~을 두려워하다",
-    "sentence": "You should be afraid of every day."
+    "sentence": "Some small children are afraid of the dark."
   },
   {
     "word": "react",
     "meaning": "반응하다",
-    "sentence": "It is important to react carefully."
+    "sentence": "How did your parents react to your good report card?"
   },
   {
     "word": "take a deep breath",
     "meaning": "심호흡하다",
-    "sentence": "You should take a deep breath every day."
+    "sentence": "Take a deep breath and calm yourself down."
   },
   {
     "word": "tap",
     "meaning": "가볍게 두드리다",
-    "sentence": "The tap is very useful here."
+    "sentence": "He tapped me on the shoulder to get my attention."
   },
   {
     "word": "nearby",
     "meaning": "근처의",
-    "sentence": "This is very nearby for all of us."
+    "sentence": "There is a lovely bakery in a nearby village."
   },
   {
     "word": "quietly",
     "meaning": "조용히",
-    "sentence": "She did the work quietly."
+    "sentence": "Please close the bedroom door quietly."
   },
   {
     "word": "right away",
     "meaning": "즉시",
-    "sentence": "We can learn how to use right away."
+    "sentence": "Call an ambulance right away in an emergency."
   },
   {
     "word": "proud",
     "meaning": "자랑스러운",
-    "sentence": "This is very proud for all of us."
+    "sentence": "Her parents were very proud of her graduation."
   },
   {
     "word": "tooth",
     "meaning": "치아; (빗 등의) 이 모양의 것",
-    "sentence": "The tooth is very useful here."
+    "sentence": "A shark has sharp teeth for catching fish."
   },
   {
     "word": "bite",
     "meaning": "물다",
-    "sentence": "The bite is very useful here."
+    "sentence": "Take a small bite of the hot pizza first."
   },
   {
     "word": "comb",
     "meaning": "빗",
-    "sentence": "The comb is very useful here."
+    "sentence": "She used a comb to untangle her long hair."
   },
   {
     "word": "even though",
     "meaning": "비록 ~일지라도",
-    "sentence": "We can learn how to use even though."
+    "sentence": "He ran fast even though his leg was sore."
   },
   {
     "word": "control",
     "meaning": "조절하다",
-    "sentence": "It is important to control carefully."
+    "sentence": "Pilots know how to control the plane in bad weather."
   },
   {
     "word": "voice",
     "meaning": "목소리",
-    "sentence": "The voice is very useful here."
+    "sentence": "The singer has a melodious and soothing voice."
   },
   {
     "word": "mathematician",
     "meaning": "수학자",
-    "sentence": "The mathematician is very useful here."
+    "sentence": "Pythagoras was a famous Greek mathematician."
   },
   {
     "word": "astronaut",
     "meaning": "우주비행사",
-    "sentence": "The astronaut is very useful here."
+    "sentence": "The astronaut floated weightlessly inside the space station."
   },
   {
     "word": "excel",
     "meaning": "뛰어나다",
-    "sentence": "It is important to excel carefully."
+    "sentence": "She excels in math and computer science."
   },
   {
     "word": "graduate",
     "meaning": "졸업하다",
-    "sentence": "It is important to graduate carefully."
+    "sentence": "My older sister will graduate from high school soon."
   },
   {
     "word": "college",
     "meaning": "대학",
-    "sentence": "The college is very useful here."
+    "sentence": "He wants to study chemistry at college."
   },
   {
     "word": "trusted",
     "meaning": "신뢰받는",
-    "sentence": "This is very trusted for all of us."
+    "sentence": "She is my most trusted friend in school."
   },
   {
     "word": "modern",
     "meaning": "현대의",
-    "sentence": "This is very modern for all of us."
+    "sentence": "Smartphones are an essential tool in modern life."
   },
   {
     "word": "widely",
     "meaning": "널리",
-    "sentence": "The widely is very useful here."
+    "sentence": "English is widely spoken across the world."
   },
   {
     "word": "depend on",
     "meaning": "~에 의존하다",
-    "sentence": "You should depend on every day."
+    "sentence": "Children depend on their parents for care and love."
   },
   {
     "word": "calculation",
     "meaning": "계산",
-    "sentence": "The calculation is very useful here."
+    "sentence": "Double-check your math calculation before submitting."
   },
   {
     "word": "accurately",
     "meaning": "정확하게",
-    "sentence": "She did the work accurately."
+    "sentence": "The archer shot the arrow accurately into the target."
   },
   {
     "word": "earn",
     "meaning": "얻다",
-    "sentence": "The earn is very useful here."
+    "sentence": "You must work diligently to earn respect."
   },
   {
     "word": "flight path",
     "meaning": "비행 경로",
-    "sentence": "We can learn how to use flight path."
+    "sentence": "Air traffic controllers monitor every airplane's flight path."
   },
   {
     "word": "orbit",
     "meaning": "궤도",
-    "sentence": "The orbit is very useful here."
+    "sentence": "The satellite completes an orbit around Earth every 90 minutes."
   },
   {
     "word": "landing",
     "meaning": "착륙",
-    "sentence": "The landing is very useful here."
+    "sentence": "The pilot made a smooth landing despite crosswinds."
   },
   {
     "word": "figure",
     "meaning": "인물",
-    "sentence": "The figure is very useful here."
+    "sentence": "The sales figures showed a big increase this month."
   },
   {
     "word": "achievement",
     "meaning": "업적",
-    "sentence": "The achievement is very useful here."
+    "sentence": "Graduating with honors was a remarkable achievement."
   },
   {
     "word": "recognize",
     "meaning": "인정하다",
-    "sentence": "It is important to recognize carefully."
+    "sentence": "I didn't recognize my friend in his costume."
   },
   {
     "word": "gender",
     "meaning": "성별",
-    "sentence": "The gender is very useful here."
+    "sentence": "Equal opportunities should be given regardless of gender."
   },
   {
     "word": "race",
     "meaning": "인종",
-    "sentence": "The race is very useful here."
+    "sentence": "He won the 100-meter sprint race easily."
   },
   {
     "word": "overlook",
     "meaning": "간과하다",
-    "sentence": "It is important to overlook carefully."
+    "sentence": "Be careful not to overlook small grammar mistakes."
   },
   {
     "word": "succeed",
     "meaning": "성공하다",
-    "sentence": "It is important to succeed carefully."
+    "sentence": "If you keep trying, you will surely succeed."
   },
   {
     "word": "practice",
     "meaning": "활동, 관행",
-    "sentence": "The practice is very useful here."
+    "sentence": "Daily practice makes your piano playing smoother."
   },
   {
     "word": "public",
     "meaning": "공공의",
-    "sentence": "This is very public for all of us."
+    "sentence": "Public libraries provide free books and internet."
   },
   {
     "word": "nuisance",
     "meaning": "성가신 것",
-    "sentence": "The nuisance is very useful here."
+    "sentence": "Loud construction noise can be a real nuisance."
   },
   {
     "word": "allow",
     "meaning": "허용하다",
-    "sentence": "It is important to allow carefully."
+    "sentence": "Our teacher allows us to listen to quiet music."
   },
   {
     "word": "valuable",
     "meaning": "가치 있는",
-    "sentence": "This is very valuable for all of us."
+    "sentence": "Time is one of the most valuable things we have."
   },
   {
     "word": "platform",
     "meaning": "발판, 플랫폼",
-    "sentence": "The platform is very useful here."
+    "sentence": "The train arrived at platform number three."
   },
   {
     "word": "emerging",
     "meaning": "떠오르는",
-    "sentence": "This is very emerging for all of us."
+    "sentence": "Artificial intelligence is an emerging field of technology."
   },
   {
     "word": "gain",
     "meaning": "얻다",
-    "sentence": "The gain is very useful here."
+    "sentence": "Reading books helps you gain wisdom."
   },
   {
     "word": "build",
     "meaning": "구축하다",
-    "sentence": "It is important to build carefully."
+    "sentence": "Birds build soft nests to protect their eggs."
   },
   {
     "word": "fanbase",
     "meaning": "팬층",
-    "sentence": "The fanbase is very useful here."
+    "sentence": "The popular band has a loyal international fanbase."
   },
   {
     "word": "talent",
     "meaning": "재능",
-    "sentence": "The talent is very useful here."
+    "sentence": "She has a natural talent for singing and dancing."
   },
   {
     "word": "budget",
     "meaning": "예산",
-    "sentence": "The budget is very useful here."
+    "sentence": "We must plan our vacation within our family budget."
   },
   {
     "word": "contribute",
     "meaning": "기여하다",
-    "sentence": "It is important to contribute carefully."
+    "sentence": "Every team member contributed great ideas."
   },
   {
     "word": "noise pollution",
     "meaning": "소음 공해",
-    "sentence": "We can learn how to use noise pollution."
+    "sentence": "Heavy street traffic causes annoying noise pollution."
   },
   {
     "word": "chaotic",
     "meaning": "혼란스러운",
-    "sentence": "This is very chaotic for all of us."
+    "sentence": "The airport was chaotic after many flights were canceled."
   },
   {
     "word": "disturb",
     "meaning": "방해하다",
-    "sentence": "It is important to disturb carefully."
+    "sentence": "Please do not disturb the sleeping baby."
   },
   {
     "word": "cause",
     "meaning": "야기하다",
-    "sentence": "It is important to cause carefully."
+    "sentence": "Ice on the road can cause dangerous car accidents."
   },
   {
     "word": "distress",
     "meaning": "고통",
-    "sentence": "The distress is very useful here."
+    "sentence": "The lost puppy was in obvious distress."
   },
   {
     "word": "anxiety",
     "meaning": "불안",
-    "sentence": "The anxiety is very useful here."
+    "sentence": "Exercising can help relieve test anxiety."
   },
   {
     "word": "lively",
     "meaning": "활기찬",
-    "sentence": "The lively is very useful here."
+    "sentence": "The lively flea market was crowded with shoppers."
   },
   {
     "word": "tourist attraction",
     "meaning": "관광 명소",
-    "sentence": "We can learn how to use tourist attraction."
+    "sentence": "N Seoul Tower is a famous tourist attraction."
   },
   {
     "word": "encourage",
     "meaning": "장려하다",
-    "sentence": "It is important to encourage carefully."
+    "sentence": "Parents encourage their children to read books."
   },
   {
     "word": "district",
     "meaning": "지역",
-    "sentence": "The district is very useful here."
+    "sentence": "The business district is filled with tall glass offices."
   },
   {
     "word": "inconvenience",
     "meaning": "불편을 주다",
-    "sentence": "The inconvenience is very useful here."
+    "sentence": "We apologize for any inconvenience caused by repairs."
   },
   {
     "word": "navigate",
     "meaning": "길을 찾아가다",
-    "sentence": "The navigate is very useful here."
+    "sentence": "Sailors used stars to navigate across the ocean."
   },
   {
     "word": "pedestrian",
     "meaning": "보행자",
-    "sentence": "The pedestrian is very useful here."
+    "sentence": "Drivers must yield to pedestrians at crosswalks."
   }
 ];
