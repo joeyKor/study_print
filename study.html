@@ -252,6 +252,7 @@
 
                     <!-- Daily Study Settings -->
                     <div id="sidebar-daily" class="sidebar-section" style="display:none;">
+                        <button class="btn btn-outline w-100" onclick="refreshContent()" style="margin-bottom: 16px; font-weight: 700;"><i class="fas fa-sync"></i> 새로고침</button>
                         <h4>일일학습 범위 설정</h4>
                         <div class="sidebar-item" style="margin-bottom: 10px;">
                             <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">한자 급수</label>
@@ -312,12 +313,13 @@
 
                     <!-- Zombie / Wun Study Settings -->
                     <div id="sidebar-zombie" class="sidebar-section" style="display:none;">
+                        <button class="btn btn-outline w-100" onclick="refreshContent()" style="margin-bottom: 16px; font-weight: 700;"><i class="fas fa-sync"></i> 새로고침</button>
                         <h4>일일학습 범위 설정</h4>
                         <div class="sidebar-item" style="margin-bottom: 10px;">
-                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">숫자 공부 범위</label>
+                            <label style="font-size: 0.9em; margin-bottom: 5px; display: block;">숫자 따라쓰기 범위</label>
                             <select id="zombie-number-range" class="form-select" onchange="refreshContent()">
-                                <option value="1_10" selected>1부터 10까지 (기초)</option>
-                                <option value="1_20">1부터 20까지 (심화)</option>
+                                <option value="1_10" selected>1부터 10까지 따라 쓰기 (기초)</option>
+                                <option value="1_20">1부터 20까지 따라 쓰기 (심화)</option>
                             </select>
                         </div>
                         <div class="sidebar-item" style="margin-bottom: 10px;">

@@ -302,6 +302,11 @@ function generateWorksheet(type) {
     const zombieSidebar = document.getElementById('sidebar-zombie');
     if (zombieSidebar) zombieSidebar.style.display = (type === 'zombie' || type === 'wun') ? 'block' : 'none';
 
+    const sidebarFooter = document.querySelector('.sidebar-footer');
+    if (sidebarFooter) {
+        sidebarFooter.style.display = (type === 'daily' || type === 'zombie' || type === 'wun') ? 'none' : 'block';
+    }
+
 
     
     // Set Date in English (e.g. Monday, May 17)
@@ -1254,70 +1259,33 @@ function createZombieStudySection(container) {
     wrapper.className = 'child-study-wrapper';
     
     // ==========================================
-    // 1. 숫자 쓰기 & 수 세기 (Number)
+    // 1. 숫자 쓰기 (Number 1~10 Tracing)
     // ==========================================
+    const numRange = document.getElementById('zombie-number-range')?.value || '1_10';
+    const is20 = (numRange === '1_20');
+
     const numTitle = document.createElement('div');
     numTitle.className = 'child-section-title title-num';
-    numTitle.innerHTML = '<i class="fas fa-sort-numeric-up" style="color: #3b82f6;"></i> 오늘의 숫자 공부 (수 세기와 바른 숫자 쓰기)';
+    numTitle.innerHTML = `<i class="fas fa-sort-numeric-up" style="color: #3b82f6;"></i> 오늘의 숫자 쓰기 (${is20 ? '1~20까지' : '1~10까지'} 따라 쓰기)`;
     wrapper.appendChild(numTitle);
-    
-    const numRange = document.getElementById('zombie-number-range')?.value || '1_10';
-    const maxNum = numRange === '1_20' ? 20 : 10;
-    
-    const numbers = [];
-    while (numbers.length < 2) {
-        let n = Math.floor(Math.random() * maxNum) + 1;
-        if (!numbers.includes(n)) numbers.push(n);
-    }
-    numbers.sort((a, b) => a - b);
-    
-    numbers.forEach(num => {
-        const row = document.createElement('div');
-        row.className = 'child-study-row child-number-row';
-        
-        // 1. Info / Count Box
-        const info = document.createElement('div');
-        info.className = 'child-info-cell';
-        
-        // Generate dot count icons
-        let countHtml = '';
-        const countLimit = Math.min(num, 10);
-        for (let i = 0; i < countLimit; i++) {
-            countHtml += `<span style="display:inline-block; width: 9px; height: 9px; background: #2563eb; border-radius: 50%; margin: 1px;"></span>`;
-        }
-        if (num > 10) {
-            countHtml = `<div style="font-size: 0.95rem; font-weight: 800; color: #2563eb;">10 + ${num - 10}</div>`;
-        }
-        
-        info.innerHTML = `
-            <div style="font-size: 0.8rem; font-weight: 800; color: #1d4ed8; margin-bottom: 2px;">숫자 ${num}</div>
-            <div style="display: flex; flex-wrap: wrap; justify-content: center; max-width: 65px; gap: 2px;">${countHtml}</div>
-        `;
-        row.appendChild(info);
-        
-        // 2. Model Box
-        const model = document.createElement('div');
-        model.className = 'child-model-cell has-crosshair';
-        model.innerHTML = `<span>${num}</span>`;
-        row.appendChild(model);
-        
-        // 3. Three Tracing Boxes
-        for (let i = 0; i < 3; i++) {
-            const trace = document.createElement('div');
-            trace.className = 'child-trace-cell has-crosshair';
-            trace.innerHTML = `<span>${num}</span>`;
-            row.appendChild(trace);
-        }
-        
-        // 4. Two Practice Blank Boxes
-        for (let i = 0; i < 2; i++) {
-            const blank = document.createElement('div');
-            blank.className = 'child-blank-cell has-crosshair';
-            row.appendChild(blank);
-        }
-        
-        wrapper.appendChild(row);
+
+    const numGrid = document.createElement('div');
+    numGrid.className = 'child-number-grid';
+
+    // 1~10 모드인 경우 1부터 10까지 2번 따라 쓰기 (총 2줄 20칸)
+    // 1~20 모드인 경우 1부터 20까지 순서대로 따라 쓰기 (1줄 1~10, 2줄 11~20)
+    const numbersToRender = is20
+        ? Array.from({ length: 20 }, (_, i) => i + 1)
+        : [...Array.from({ length: 10 }, (_, i) => i + 1), ...Array.from({ length: 10 }, (_, i) => i + 1)];
+
+    numbersToRender.forEach(num => {
+        const cell = document.createElement('div');
+        cell.className = 'child-number-cell has-crosshair';
+        cell.innerHTML = `<span>${num}</span>`;
+        numGrid.appendChild(cell);
     });
+
+    wrapper.appendChild(numGrid);
     
     // ==========================================
     // 2. 알파벳 쓰기 (Alphabet A~Z / a~z)
