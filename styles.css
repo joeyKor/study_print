@@ -564,6 +564,280 @@ main {
     margin-top: 2px;
 }
 
+/* Hangeul Writing Section (Ganada & Vowels) */
+.hangeul-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.hangeul-section.hangeul-ganada-view {
+    gap: 4px;
+}
+
+.hangeul-section.hangeul-vowel-view {
+    gap: 7px;
+}
+
+.hangeul-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    border-bottom: 1px dashed #f1f5f9;
+    width: 100%;
+}
+
+.hangeul-char-cell {
+    flex: 1;
+    width: auto;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: var(--font-hangeul-trace, 'NanumBarunpen', sans-serif);
+    color: #cbd5e1; /* Gray trace color */
+    user-select: none;
+}
+
+.hangeul-ganada-view .hangeul-char-cell {
+    height: 55px;
+    font-size: 2.7rem;
+}
+
+.hangeul-vowel-view .hangeul-char-cell {
+    height: 72px;
+    font-size: 3.3rem;
+}
+
+/* 4-Quadrant Cross Guidelines (십자 보조선) */
+.hangeul-char-cell::before,
+.hangeul-char-cell::after {
+    content: '';
+    position: absolute;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.hangeul-char-cell::before {
+    top: 50%;
+    left: 0;
+    right: 0;
+    height: 0;
+    border-top: 1px dashed #e2e8f0;
+}
+
+.hangeul-char-cell::after {
+    left: 50%;
+    top: 0;
+    bottom: 0;
+    width: 0;
+    border-left: 1px dashed #e2e8f0;
+}
+
+.hangeul-char-cell span {
+    position: relative;
+    z-index: 2;
+    line-height: 1;
+}
+
+/* Info Box (기준 글자) */
+.hangeul-char-cell.hangeul-info-box {
+    background-color: #f1f5f9;
+    color: #4f46e5;
+    font-weight: 800;
+    border: 2px solid #818cf8;
+}
+
+/* Practice Box (빈칸) */
+.hangeul-char-cell.hangeul-practice-box {
+    color: transparent;
+}
+
+/* ==========================================================================
+   Number Writing Section (1-10, 11-20, 1-20 Split, 1-50, 1-100)
+   ========================================================================== */
+.number-section {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.number-single-view {
+    gap: 7px;
+}
+
+.number-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    border-bottom: 1px dashed #f1f5f9;
+    width: 100%;
+}
+
+.number-char-cell {
+    flex: 1;
+    width: auto;
+    border: 1.5px solid #cbd5e1;
+    border-radius: 6px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: var(--font-english-trace, 'ABeeZee', sans-serif);
+    color: #cbd5e1; /* Gray trace color */
+    user-select: none;
+}
+
+.number-single-view .number-char-cell {
+    height: 72px;
+    font-size: 3.3rem;
+}
+
+/* Info Box (기준 숫자) */
+.number-char-cell.number-info-box {
+    background-color: #f0f9ff;
+    color: #0284c7;
+    font-weight: 800;
+    border: 2px solid #38bdf8;
+}
+
+/* Practice Box (빈칸) */
+.number-char-cell.number-practice-box,
+.number-board-cell.number-practice-box {
+    color: transparent !important;
+}
+
+.number-char-cell span,
+.number-board-cell span {
+    position: relative;
+    z-index: 2;
+    line-height: 1;
+}
+
+/* Number 2-Column Split View (1~20) */
+.number-section.number-split-view {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.number-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    min-width: 0;
+}
+
+.number-col-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 6px;
+}
+
+.number-col-badge span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #0284c7;
+    background: #f0f9ff;
+    padding: 2px 16px;
+    border-radius: 9999px;
+    letter-spacing: 0.5px;
+    border: 1px solid #bae6fd;
+}
+
+.number-divider {
+    width: 1px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #cbd5e1 0,
+        #cbd5e1 5px,
+        transparent 5px,
+        transparent 9px
+    );
+    align-self: stretch;
+    margin: 4px 0 2px;
+}
+
+.number-split-view .number-row {
+    gap: 6px;
+    padding: 2px 0;
+}
+
+.number-split-view .number-char-cell {
+    height: 72px;
+    font-size: 3.2rem;
+}
+
+/* Number Grid Board View (1-50, 1-100) */
+.number-grid-container {
+    width: 100%;
+    margin-top: 8px;
+    box-sizing: border-box;
+}
+
+.number-board-grid {
+    display: grid;
+    grid-template-columns: repeat(10, minmax(0, 1fr));
+    gap: 5px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.number-board-cell {
+    border: 1.5px solid #cbd5e1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: #ffffff;
+    box-sizing: border-box;
+    font-family: var(--font-english-trace, 'ABeeZee', sans-serif);
+    color: #cbd5e1;
+    font-weight: 700;
+    user-select: none;
+    min-width: 0;
+    overflow: hidden;
+}
+
+.number-board-cell span {
+    white-space: nowrap;
+    line-height: 1;
+    letter-spacing: -0.5px;
+}
+
+.grid-50-view .number-board-cell {
+    height: 100px;
+    font-size: 2.5rem;
+    border-radius: 8px;
+}
+
+.grid-100-view .number-board-cell {
+    height: 65px;
+    font-size: 1.85rem;
+    border-radius: 6px;
+}
+
+.grid-100-view .number-board-cell:last-child span {
+    letter-spacing: -2px; /* 100 세 자리 숫자 최적화 */
+}
+
 /* Tracing Module */
 .tracing-container {
     display: flex;
@@ -735,6 +1009,7 @@ main {
     color: #cbd5e1; /* Light gray tracing text color */
     position: relative;
     background-color: #ffffff;
+    box-sizing: border-box;
 }
 
 .alphabet-char-cell.practice-box {
@@ -759,6 +1034,102 @@ main {
     position: relative;
     z-index: 2;
     line-height: 1;
+}
+
+/* 4-Line English Guideline Rulings for Alphabet Cells */
+.alphabet-char-cell.has-ruling::before {
+    content: '';
+    position: absolute;
+    top: 32%;
+    left: 0;
+    right: 0;
+    border-top: 1px dashed #93c5fd;
+    pointer-events: none;
+    z-index: 1;
+}
+
+.alphabet-char-cell.has-ruling::after {
+    content: '';
+    position: absolute;
+    bottom: 24%;
+    left: 0;
+    right: 0;
+    border-bottom: 1.5px solid #f87171;
+    pointer-events: none;
+    z-index: 1;
+}
+
+/* Alphabet 2-Column Split View (A-Z All-in-One Layout) */
+.alphabet-section.alphabet-split-view {
+    display: flex;
+    flex-direction: row;
+    gap: 16px;
+    width: 100%;
+    margin-top: 4px;
+}
+
+.alphabet-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    min-width: 0;
+}
+
+.alphabet-col-badge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0 6px;
+}
+
+.alphabet-col-badge span {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    color: #4f46e5;
+    background: #eef2ff;
+    padding: 2px 16px;
+    border-radius: 9999px;
+    letter-spacing: 0.5px;
+    border: 1px solid #c7d2fe;
+}
+
+.alphabet-divider {
+    width: 1px;
+    background: repeating-linear-gradient(
+        to bottom,
+        #cbd5e1 0,
+        #cbd5e1 5px,
+        transparent 5px,
+        transparent 9px
+    );
+    align-self: stretch;
+    margin: 4px 0 2px;
+}
+
+.alphabet-split-view .alphabet-row {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 2px 0;
+    border-bottom: 1px dashed #f1f5f9;
+    width: 100%;
+}
+
+.alphabet-split-view .alphabet-char-cell {
+    flex: 1;
+    width: auto;
+    height: 60px;
+    min-width: 0;
+    font-size: 3.0rem;
+    border-radius: 6px;
+}
+
+.alphabet-split-view .alphabet-char-cell.is-mixed {
+    font-size: 2.1rem;
 }
 
 /* Hanja Practice Worksheet Styles (Blank Form) */
@@ -999,6 +1370,36 @@ main {
     /* Adjust table margin slightly for printing to guarantee perfect single-page layout */
     .hanja-practice-table {
         margin-bottom: 12px;
+    }
+
+    .alphabet-section.alphabet-split-view {
+        margin-top: 0 !important;
+        gap: 12px !important;
+    }
+
+    .alphabet-split-view .alphabet-char-cell {
+        height: 60px !important;
+    }
+
+    .hangeul-ganada-view .hangeul-char-cell {
+        height: 55px !important;
+    }
+
+    .hangeul-vowel-view .hangeul-char-cell {
+        height: 72px !important;
+    }
+
+    .number-single-view .number-char-cell,
+    .number-split-view .number-char-cell {
+        height: 72px !important;
+    }
+
+    .grid-50-view .number-board-cell {
+        height: 100px !important;
+    }
+
+    .grid-100-view .number-board-cell {
+        height: 65px !important;
     }
 
     /* Force background colors and borders to print properly */

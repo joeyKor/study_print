@@ -39,8 +39,9 @@ function openHangeulConfig() {
         location.href = 'study.html?type=hangeul';
         return;
     }
-    currentSubCategory = 'basic';
-    generateWorksheet('hangeul');
+    const urlParams = new URLSearchParams(window.location.search);
+    currentSubCategory = urlParams.get('sub') || 'ganada';
+    setSubCategory('hangeul', currentSubCategory);
 }
 
 function openHangeulWordConfig() {
@@ -113,8 +114,19 @@ function openAlphabetConfig() {
         location.href = 'study.html?type=alphabet';
         return;
     }
-    currentSubCategory = 'upper_am';
-    generateWorksheet('alphabet');
+    const urlParams = new URLSearchParams(window.location.search);
+    currentSubCategory = urlParams.get('sub') || 'upper_all';
+    setSubCategory('alphabet', currentSubCategory);
+}
+
+function openNumberConfig() {
+    if (!document.getElementById('worksheet-container')) {
+        location.href = 'study.html?type=number';
+        return;
+    }
+    const urlParams = new URLSearchParams(window.location.search);
+    currentSubCategory = urlParams.get('sub') || 'num_1_10';
+    setSubCategory('number', currentSubCategory);
 }
 
 function openCalendarConfig() {
@@ -205,7 +217,8 @@ function setSubCategory(mainType, subType) {
     // Update active class in sidebar
     const items = document.querySelectorAll('.sub-menu li');
     items.forEach(item => {
-        if (item.getAttribute('onclick').includes(`'${subType}'`)) {
+        const onClickAttr = item.getAttribute('onclick');
+        if (onClickAttr && onClickAttr.includes(`'${subType}'`)) {
             item.classList.add('active');
         } else {
             item.classList.remove('active');
@@ -270,6 +283,7 @@ function generateWorksheet(type) {
     const tracingSidebar = document.getElementById('sidebar-tracing');
     const englishSidebar = document.getElementById('sidebar-english');
     const alphabetSidebar = document.getElementById('sidebar-alphabet');
+    const numberSidebar = document.getElementById('sidebar-number');
     const drawingSidebar = document.getElementById('sidebar-drawing');
     const calendarSidebar = document.getElementById('sidebar-calendar');
     const clockSidebar = document.getElementById('sidebar-clock');
@@ -288,6 +302,7 @@ function generateWorksheet(type) {
     tracingSidebar.style.display = type === 'tracing' ? 'block' : 'none';
     englishSidebar.style.display = type === 'english' ? 'block' : 'none';
     if (alphabetSidebar) alphabetSidebar.style.display = type === 'alphabet' ? 'block' : 'none';
+    if (numberSidebar) numberSidebar.style.display = type === 'number' ? 'block' : 'none';
     if (drawingSidebar) drawingSidebar.style.display = type === 'drawing' ? 'block' : 'none';
     if (calendarSidebar) calendarSidebar.style.display = type === 'calendar' ? 'block' : 'none';
     if (clockSidebar) clockSidebar.style.display = type === 'clock' ? 'block' : 'none';
@@ -336,14 +351,18 @@ function generateWorksheet(type) {
             const count = 72; // Default consistent count (Medium)
             
             const subNames = { 
-                basic: '기초 낱자', word: '낱말 쓰기', sentence: '문장 쓰기',
+                ganada: '한글 쓰기 - 기본 음절 (가 - 하)',
+                vowel: '한글 쓰기 - 기본 모음 (아 - 이)',
+                basic: '한글 쓰기 - 기본 음절 (가 - 하)',
+                word: '한글 쓰기 - 낱말 쓰기',
+                sentence: '한글 쓰기 - 문장 쓰기',
                 hanja8: '한자 8급', hanja7: '한자 7급', hanja6: '한자 6급', 
                 hanjajun5: '한자 준5급', hanja5: '한자 5급', 
                 hanjajun4: '한자 준4급', hanja4: '한자 4급', 
                 hanjajun3: '한자 준3급', hanja3: '한자 3급',
                 gosa: '고사성어 익히기' 
             };
-            title.innerText = subNames[currentSubCategory] || '쓰기 공부';
+            title.innerText = subNames[currentSubCategory] || '한글 쓰기 - 기본 음절 (가 - 하)';
             
             if (currentSubCategory === 'gosa') {
                 createGosaSection(content);
@@ -370,8 +389,8 @@ function generateWorksheet(type) {
                     content.innerHTML = `<p style="color:red">한자 ${level} 데이터를 불러오지 못했습니다. (HANJA_${level}_DATA undefined)<br>로컬 파일 실행 시 보안 정책 때문일 수 있으니 새로고침을 해보거나 데이터를 확인해주세요.</p>`;
                 }
             } else if (type === 'hangeul') {
+                title.innerText = subNames[currentSubCategory] || '한글 쓰기 - 기본 음절 (가 - 하)';
                 if (currentSubCategory === 'word') {
-                    title.innerText = '한글공부 - 단어쓰기';
                     content.appendChild(createHangeulWordSection('animals'));
                 } else {
                     createHangeulWritingSection(content, currentSubCategory);
@@ -432,6 +451,9 @@ function generateWorksheet(type) {
             
         case 'alphabet':
             const subNamesAlphabet = {
+                upper_all: '알파벳 대문자 쓰기 (A - Z 한번에)',
+                lower_all: '알파벳 소문자 쓰기 (a - z 한번에)',
+                mixed_all: '알파벳 대소문자 함께 쓰기 (Aa - Zz 한번에)',
                 upper_am: '알파벳 대문자 쓰기 (A - M)',
                 upper_nz: '알파벳 대문자 쓰기 (N - Z)',
                 lower_am: '알파벳 소문자 쓰기 (a - m)',
@@ -439,8 +461,20 @@ function generateWorksheet(type) {
                 mixed_am: '알파벳 대소문자 함께 쓰기 (Aa - Mm)',
                 mixed_nz: '알파벳 대소문자 함께 쓰기 (Nn - Zz)'
             };
-            title.innerText = subNamesAlphabet[currentSubCategory] || '알파벳 쓰기 연습';
+            title.innerText = subNamesAlphabet[currentSubCategory] || '알파벳 대문자 쓰기 (A - Z 한번에)';
             content.appendChild(createAlphabetSection(currentSubCategory));
+            break;
+
+        case 'number':
+            const subNamesNumber = {
+                num_1_10: '숫자 쓰기 - 기초 (1 - 10)',
+                num_11_20: '숫자 쓰기 - 두 자리 (11 - 20)',
+                num_1_20_split: '숫자 쓰기 - 1부터 20까지 (한번에)',
+                num_grid_50: '숫자 쓰기 - 1부터 50까지 수 배열판',
+                num_grid_100: '숫자 쓰기 - 1부터 100까지 백판'
+            };
+            title.innerText = subNamesNumber[currentSubCategory] || '숫자 쓰기 공부';
+            content.appendChild(createNumberSection(currentSubCategory));
             break;
  
         case 'daily':
@@ -770,6 +804,7 @@ window.onload = () => {
             case 'tracing': openTracingConfig(); break;
             case 'english': openEnglishConfig(); break;
             case 'alphabet': openAlphabetConfig(); break;
+            case 'number': openNumberConfig(); break;
             case 'calendar': openCalendarConfig(); break;
             case 'clock': openClockConfig(); break;
             case 'multiplication': openMultiplicationConfig(); break;

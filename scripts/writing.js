@@ -2,12 +2,13 @@
  * Writing Worksheet Generators (Hanja, Gosa, Hangeul)
  */
 
-const HANGEUL_BASIC_DATA = [
-    { char: 'ㄱ' }, { char: 'ㄴ' }, { char: 'ㄷ' }, { char: 'ㄹ' }, { char: 'ㅁ' }, 
-    { char: 'ㅂ' }, { char: 'ㅅ' }, { char: 'ㅇ' }, { char: 'ㅈ' }, { char: 'ㅊ' }, 
-    { char: 'ㅋ' }, { char: 'ㅌ' }, { char: 'ㅍ' }, { char: 'ㅎ' },
-    { char: 'ㅏ' }, { char: 'ㅑ' }, { char: 'ㅓ' }, { char: 'ㅕ' }, { char: 'ㅗ' }, 
-    { char: 'ㅛ' }, { char: 'ㅜ' }, { char: 'ㅠ' }, { char: 'ㅡ' }, { char: 'ㅣ' }
+const HANGEUL_GANADA_DATA = [
+    '가', '나', '다', '라', '마', '바', '사', 
+    '아', '자', '차', '카', '타', '파', '하'
+];
+
+const HANGEUL_VOWEL_DATA = [
+    '아', '야', '어', '여', '오', '요', '우', '유', '으', '이'
 ];
 
 const HANGEUL_WORD_DATA = [
@@ -16,94 +17,77 @@ const HANGEUL_WORD_DATA = [
     { char: '나무' }, { char: '우리' }, { char: '아이' }, { char: '오이' }
 ];
 
-function createHangeulWritingSection(target, subCategory) {
-    const container = document.createElement('div');
-    container.className = 'hanja-section'; // Reuse hanja style
-    
-    let charactersToRender = []; // Array of { char: '학', context: '학교' }
+function createHangeulWritingSection(target, subCategory = 'ganada') {
+    const isVowel = subCategory === 'vowel';
+    const isSentence = subCategory === 'sentence';
+    const isGanada = subCategory === 'ganada' || subCategory === 'basic' || (!isVowel && !isSentence);
 
-    if (subCategory === 'basic') {
-        const data = HANGEUL_BASIC_DATA;
-        const selected = [...data].sort(() => 0.5 - Math.random()).slice(0, 10);
-        selected.forEach(item => {
-            charactersToRender.push({ char: item.char, context: '' });
-        });
-    } else if (subCategory === 'word') {
-        const data = HANGEUL_WORD_DATA;
-        // Pick 5 random words (total 10 characters)
-        const selectedWords = [...data].sort(() => 0.5 - Math.random()).slice(0, 5);
-        selectedWords.forEach(wordItem => {
-            const word = wordItem.char;
-            for (let i = 0; i < word.length; i++) {
-                charactersToRender.push({ char: word[i], context: word });
-            }
-        });
-    } else if (subCategory === 'sentence') {
-        const data = [
-            { char: '나는 학교에 갑니다.' },
-            { char: '오늘 날씨가 참 좋아요.' },
-            { char: '한글 공부는 재미있어요.' }
+    const container = document.createElement('div');
+    container.className = `hangeul-section ${isVowel ? 'hangeul-vowel-view' : 'hangeul-ganada-view'}`;
+
+    const traceMode = document.getElementById('select-hangeul-trace-type')?.value || 'all_trace';
+
+    let charactersToRender = [];
+
+    if (isVowel) {
+        // 아, 야, 어, 여, 오, 요, 우, 유, 으, 이 (10글자 순서대로)
+        HANGEUL_VOWEL_DATA.forEach(c => charactersToRender.push({ char: c, context: '' }));
+    } else if (isGanada) {
+        // 가, 나, 다, 라, 마, 바, 사, 아, 자, 차, 카, 타, 파, 하 (14글자 순서대로)
+        HANGEUL_GANADA_DATA.forEach(c => charactersToRender.push({ char: c, context: '' }));
+    } else if (isSentence) {
+        const sentences = [
+            '나는 학교에 갑니다.',
+            '오늘 날씨가 참 좋아요.',
+            '한글 공부는 재미있어요.',
+            '우리 가족을 사랑해요.'
         ];
-        // Pick 1 random sentence
-        const selectedSentenceItem = data[Math.floor(Math.random() * data.length)];
-        const sentence = selectedSentenceItem.char;
-        for (let i = 0; i < sentence.length; i++) {
-            const char = sentence[i];
-            // Skip spaces and punctuation
+        const selectedSentence = sentences[Math.floor(Math.random() * sentences.length)];
+        for (let i = 0; i < selectedSentence.length; i++) {
+            const char = selectedSentence[i];
             if (char === ' ' || char === '.' || char === '!' || char === '?') continue;
-            charactersToRender.push({ char: char, context: sentence });
+            charactersToRender.push({ char: char, context: selectedSentence });
         }
     }
 
-    // Render the characters
     charactersToRender.forEach(item => {
         const row = document.createElement('div');
-        row.className = 'hanja-row';
-        
-        // Label info (The character itself and its context)
-        const info = document.createElement('div');
-        info.className = 'hanja-meaning-info';
-        
-        if (item.context) {
-            const truncatedContext = item.context.length > 8 ? item.context.substring(0, 7) + '...' : item.context;
-            info.innerHTML = `
-                <div class="hanja-hoon-eum" style="font-size: 1.4rem;">${item.char}</div>
-                <div class="hanja-level-tag" style="font-size: 0.75rem; color: var(--text-muted); margin-top: 2px;">[${truncatedContext}]</div>
-            `;
+        row.className = 'hangeul-row';
+
+        // 1. Info block (보기 기준 글자)
+        const infoCell = document.createElement('div');
+        infoCell.className = 'hangeul-char-cell hangeul-info-box';
+        infoCell.innerHTML = `<span>${item.char}</span>`;
+        row.appendChild(infoCell);
+
+        // 6 practice/trace cells
+        if (traceMode === 'with_practice') {
+            // 3 trace cells + 3 practice cells
+            for (let i = 0; i < 3; i++) {
+                const traceCell = document.createElement('div');
+                traceCell.className = 'hangeul-char-cell hangeul-trace-box';
+                traceCell.innerHTML = `<span>${item.char}</span>`;
+                row.appendChild(traceCell);
+            }
+            for (let i = 0; i < 3; i++) {
+                const practiceCell = document.createElement('div');
+                practiceCell.className = 'hangeul-char-cell hangeul-practice-box';
+                practiceCell.innerHTML = `<span>${item.char}</span>`;
+                row.appendChild(practiceCell);
+            }
         } else {
-            info.innerHTML = `<div class="hanja-hoon-eum" style="font-size: 1.6rem; font-weight: 700;">${item.char}</div>`;
+            // Default: All 6 cells are gray trace cells (회색 음영 따라쓰기)
+            for (let i = 0; i < 6; i++) {
+                const traceCell = document.createElement('div');
+                traceCell.className = 'hangeul-char-cell hangeul-trace-box';
+                traceCell.innerHTML = `<span>${item.char}</span>`;
+                row.appendChild(traceCell);
+            }
         }
-        row.appendChild(info);
-
-        // 3 Tracing cells (grey text)
-        for (let i = 0; i < 3; i++) {
-            const charCell = document.createElement('div');
-            charCell.className = 'hanja-char-cell hangeul-char-cell';
-            charCell.style.fontSize = '2.4rem';
-            charCell.innerHTML = `<span>${item.char}</span>`;
-            row.appendChild(charCell);
-        }
-        
-        // 2 Practice boxes
-        const practiceGrid = document.createElement('div');
-        practiceGrid.className = 'hanja-practice-grid';
-        for (let i = 0; i < 2; i++) {
-            const box = document.createElement('div');
-            box.className = 'writing-box';
-            practiceGrid.appendChild(box);
-        }
-        row.appendChild(practiceGrid);
-
-        // Reference cell
-        const refCell = document.createElement('div');
-        refCell.className = 'hanja-ref-cell hangeul-char-cell';
-        refCell.style.fontSize = '2.4rem';
-        refCell.innerHTML = `<span>${item.char}</span>`;
-        row.appendChild(refCell);
 
         container.appendChild(row);
     });
-    
+
     target.appendChild(container);
 }
 
