@@ -23,7 +23,7 @@ function createMazeSection(difficulty, themeKey) {
     container.appendChild(desc);
 
     if (difficulty === 'easy') {
-        // 2 easier mazes (10x10 each) so it fills the page nicely
+        // 2 easier mazes (10x10 each) so it fills a single A4 page without vertical clipping
         const wrap = document.createElement('div');
         wrap.className = 'maze-dual-wrap';
 
@@ -35,7 +35,8 @@ function createMazeSection(difficulty, themeKey) {
             mTitle.innerHTML = `<span>[미로 #${i}]</span> ${theme.startEmoji} 출발 ➔ ${theme.endEmoji} 도착`;
             mazeBox.appendChild(mTitle);
 
-            const svg = generateMazeSVG(10, 10, theme, 340, 260);
+            // 10x10 square cells (27x27px each), balanced margins so it never overflows A4
+            const svg = generateMazeSVG(10, 10, theme, 366, 314, 48, 22);
             mazeBox.appendChild(svg);
             wrap.appendChild(mazeBox);
         }
@@ -60,7 +61,8 @@ function createMazeSection(difficulty, themeKey) {
         `;
         wrap.appendChild(infoBar);
 
-        const svg = generateMazeSVG(size, size, theme, 600, 540);
+        // 480x480 inner square maze area for single page
+        const svg = generateMazeSVG(size, size, theme, 570, 540, 45, 30);
         wrap.appendChild(svg);
         container.appendChild(wrap);
     }
@@ -123,10 +125,9 @@ function generateMazeMatrix(cols, rows) {
 /**
  * Render Maze as SVG Element
  */
-function generateMazeSVG(cols, rows, theme, svgWidth, svgHeight) {
-    const margin = 45;
-    const innerW = svgWidth - margin * 2;
-    const innerH = svgHeight - margin * 2;
+function generateMazeSVG(cols, rows, theme, svgWidth, svgHeight, marginX = 45, marginY = 45) {
+    const innerW = svgWidth - marginX * 2;
+    const innerH = svgHeight - marginY * 2;
     const cellW = innerW / cols;
     const cellH = innerH / rows;
 
@@ -147,8 +148,8 @@ function generateMazeSVG(cols, rows, theme, svgWidth, svgHeight) {
     for (let r = 0; r < rows; r++) {
         for (let c = 0; c < cols; c++) {
             const cell = maze[r][c];
-            const x = margin + c * cellW;
-            const y = margin + r * cellH;
+            const x = marginX + c * cellW;
+            const y = marginY + r * cellH;
 
             // Top wall
             if (cell.walls[0]) {
@@ -175,19 +176,19 @@ function generateMazeSVG(cols, rows, theme, svgWidth, svgHeight) {
     svg.appendChild(wallsGroup);
 
     // Start Marker (left of 0,0)
-    const startX = margin - 25;
-    const startY = margin + cellH / 2 + 7;
+    const startX = marginX - 24;
+    const startY = marginY + cellH / 2 + 5;
     const startText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     startText.setAttribute('x', startX);
     startText.setAttribute('y', startY);
-    startText.setAttribute('font-size', '24');
+    startText.setAttribute('font-size', '22');
     startText.setAttribute('text-anchor', 'middle');
     startText.textContent = theme.startEmoji;
     svg.appendChild(startText);
 
     const startLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     startLabel.setAttribute('x', startX);
-    startLabel.setAttribute('y', startY + 16);
+    startLabel.setAttribute('y', startY + 14);
     startLabel.setAttribute('font-size', '10');
     startLabel.setAttribute('font-weight', 'bold');
     startLabel.setAttribute('fill', '#059669');
@@ -196,19 +197,19 @@ function generateMazeSVG(cols, rows, theme, svgWidth, svgHeight) {
     svg.appendChild(startLabel);
 
     // Goal Marker (right of cols-1, rows-1)
-    const goalX = margin + innerW + 25;
-    const goalY = margin + (rows - 0.5) * cellH + 7;
+    const goalX = marginX + innerW + 24;
+    const goalY = marginY + (rows - 0.5) * cellH + 5;
     const goalText = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     goalText.setAttribute('x', goalX);
     goalText.setAttribute('y', goalY);
-    goalText.setAttribute('font-size', '24');
+    goalText.setAttribute('font-size', '22');
     goalText.setAttribute('text-anchor', 'middle');
     goalText.textContent = theme.endEmoji;
     svg.appendChild(goalText);
 
     const goalLabel = document.createElementNS('http://www.w3.org/2000/svg', 'text');
     goalLabel.setAttribute('x', goalX);
-    goalLabel.setAttribute('y', goalY + 16);
+    goalLabel.setAttribute('y', goalY + 14);
     goalLabel.setAttribute('font-size', '10');
     goalLabel.setAttribute('font-weight', 'bold');
     goalLabel.setAttribute('fill', '#dc2626');

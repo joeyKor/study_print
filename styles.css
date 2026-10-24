@@ -1753,6 +1753,38 @@ main {
         height: 65px !important;
     }
 
+    /* Maze Worksheet Print Optimizations */
+    .maze-worksheet .sheet-instruction {
+        margin-bottom: 2.5mm !important;
+        padding: 1.8mm 3mm !important;
+        font-size: 8.5pt !important;
+    }
+    .maze-dual-wrap {
+        gap: 4mm !important;
+    }
+    .maze-dual-wrap .maze-box {
+        padding: 2.5mm 4mm !important;
+        border-width: 1.5px !important;
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        max-width: 150mm !important;
+    }
+    .maze-dual-wrap .maze-sub-title {
+        font-size: 9pt !important;
+        margin-bottom: 1.5mm !important;
+    }
+    .maze-dual-wrap .maze-svg {
+        max-height: 82mm !important;
+        max-width: 95mm !important;
+    }
+    .maze-single-wrap .maze-header-bar {
+        margin-bottom: 3mm !important;
+    }
+    .maze-single-wrap .maze-svg {
+        max-height: 160mm !important;
+        max-width: 160mm !important;
+    }
+
     /* Force background colors and borders to print properly */
     * {
         -webkit-print-color-adjust: exact !important;
@@ -2220,29 +2252,48 @@ body.landscape-mode #sheet-content {
     flex-direction: column;
     align-items: center;
 }
+.maze-worksheet .sheet-instruction {
+    width: 100%;
+    margin-bottom: 0.55rem;
+    padding: 0.45rem 0.8rem;
+    font-size: 0.88rem;
+    box-sizing: border-box;
+}
 .maze-dual-wrap {
     width: 100%;
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
+    gap: 0.65rem;
+    align-items: center;
 }
-.maze-box {
-    border: 2px dashed #cbd5e1;
-    border-radius: 14px;
-    padding: 1rem;
+.maze-dual-wrap .maze-box {
+    width: 100%;
+    max-width: 520px;
+    border: 1.5px dashed #cbd5e1;
+    border-radius: 12px;
+    padding: 0.45rem 0.6rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     background: white;
+    box-sizing: border-box;
 }
-.maze-sub-title {
-    font-size: 1.05rem;
+.maze-dual-wrap .maze-sub-title {
+    font-size: 0.95rem;
     font-weight: 700;
     color: #1e293b;
-    margin-bottom: 0.5rem;
+    margin-bottom: 0.2rem;
 }
-.maze-sub-title span {
+.maze-dual-wrap .maze-sub-title span {
     color: #6366f1;
+}
+.maze-dual-wrap .maze-svg {
+    width: 100%;
+    max-width: 360px;
+    max-height: 305px;
+    height: auto;
+    background: #ffffff;
+    filter: drop-shadow(0 2px 4px rgba(0,0,0,0.04));
 }
 .maze-single-wrap {
     width: 100%;
@@ -2252,11 +2303,11 @@ body.landscape-mode #sheet-content {
 }
 .maze-header-bar {
     width: 100%;
-    max-width: 600px;
+    max-width: 560px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 0.8rem;
+    margin-bottom: 0.6rem;
     font-size: 0.95rem;
 }
 .maze-legend {
@@ -2284,8 +2335,11 @@ body.landscape-mode #sheet-content {
     font-weight: 600;
     color: #64748b;
 }
-.maze-svg {
-    max-height: 560px;
+.maze-single-wrap .maze-svg {
+    width: 100%;
+    max-width: 560px;
+    max-height: 520px;
+    height: auto;
     background: #ffffff;
     filter: drop-shadow(0 2px 4px rgba(0,0,0,0.04));
 }
