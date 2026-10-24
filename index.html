@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>학습지 제작소 - 스마트 교육 솔루션</title>
-    <link rel="stylesheet" href="styles.css?v=6">
+    <link rel="stylesheet" href="styles.css?v=7">
     <!-- FontAwesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
@@ -13,97 +13,482 @@
         <header>
             <h1><i class="fas fa-pencil-alt"></i> 학습지 제작소</h1>
             <div class="header-controls">
+                <button class="btn btn-primary" onclick="location.href='report.html'" style="display: inline-flex; align-items: center; gap: 0.45rem;">
+                    <i class="fas fa-chart-line"></i> 성취도 리포트
+                </button>
                 <button class="btn btn-outline" onclick="openSettingsModal()"><i class="fas fa-cog"></i> 글꼴·따라쓰기 설정</button>
             </div>
         </header>
 
         <main>
             <!-- Dashboard View -->
-            <div id="dashboard" class="dashboard" style="display: grid;">
-                <div class="category-card" onclick="openDailyStudy()" style="grid-column: span 2; background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%); color: white;">
-                    <i class="fas fa-star" style="color: #fbbf24;"></i>
-                    <h3 style="color: white;">초등2 일일학습</h3>
-                    <p style="color: rgba(255,255,255,0.9);">한자 5개 + 영단어 4개 오늘의 학습 패키지입니다.</p>
+            <div id="dashboard">
+                <!-- Search & Filter Hero -->
+                <div class="dashboard-hero">
+                    <div class="search-wrap">
+                        <i class="fas fa-search search-icon"></i>
+                        <input type="text" id="menu-search-input" class="search-input-box" placeholder="원하는 학습지를 빠르게 검색하세요 (예: 구구단, 시계, 한글, 알파벳...)" oninput="handleSearchInput(this.value)">
+                        <button id="search-clear-btn" class="clear-btn" onclick="clearSearch()" title="검색어 지우기"><i class="fas fa-times"></i></button>
+                    </div>
+
+                    <!-- Category Filter Tabs -->
+                    <div class="filter-tabs-container">
+                        <button class="filter-tab active" data-filter="all" onclick="setMenuCategory('all', this)">
+                            <i class="fas fa-th-large"></i> 전체 <span class="tab-badge">17</span>
+                        </button>
+                        <button class="filter-tab" data-filter="daily" onclick="setMenuCategory('daily', this)">
+                            <i class="fas fa-star" style="color: #f59e0b;"></i> 일일 패키지 <span class="tab-badge">2</span>
+                        </button>
+                        <button class="filter-tab" data-filter="language" onclick="setMenuCategory('language', this)">
+                            <i class="fas fa-pen-fancy" style="color: #ec4899;"></i> 언어·글씨 <span class="tab-badge">6</span>
+                        </button>
+                        <button class="filter-tab" data-filter="math" onclick="setMenuCategory('math', this)">
+                            <i class="fas fa-calculator" style="color: #3b82f6;"></i> 수학·연산 <span class="tab-badge">4</span>
+                        </button>
+                        <button class="filter-tab" data-filter="creative" onclick="setMenuCategory('creative', this)">
+                            <i class="fas fa-palette" style="color: #10b981;"></i> 창의·놀이 <span class="tab-badge">3</span>
+                        </button>
+                        <button class="filter-tab" data-filter="tools" onclick="setMenuCategory('tools', this)">
+                            <i class="fas fa-file-alt" style="color: #8b5cf6;"></i> 서식·도구 <span class="tab-badge">2</span>
+                        </button>
+                    </div>
                 </div>
-                <div class="category-card" onclick="openZombieStudy()" style="grid-column: span 2; background: linear-gradient(135deg, #10b981 0%, #059669 100%); color: white;">
-                    <i class="fas fa-baby" style="color: #fef08a;"></i>
-                    <h3 style="color: white;">유치5세 일일학습</h3>
-                    <p style="color: rgba(255,255,255,0.9);">숫자 쓰기 + 알파벳 쓰기 + 시계/연산 맞춤 패키지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openMathConfig()">
-                    <i class="fas fa-calculator" style="color: var(--accent-blue);"></i>
-                    <h3>연산 공부</h3>
-                    <p>덧셈, 뺄셈, 곱셈, 나눗셈 등 수준별 문제를 생성합니다.</p>
-                </div>
-                <div class="category-card" onclick="openHangeulWordConfig()" style="background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%); color: white;">
-                    <i class="fas fa-spell-check" style="color: #fef08a;"></i>
-                    <h3 style="color: white;">한글 단어쓰기</h3>
-                    <p style="color: rgba(255,255,255,0.95);">생생한 그림과 함께 낱말을 따라 쓰고 익히는 단어쓰기 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openHangeulConfig()">
-                    <i class="fas fa-language" style="color: var(--accent-pink);"></i>
-                    <h3>한글 쓰기</h3>
-                    <p>따라 쓰기 격자가 포함된 한글 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openAlphabetConfig()">
-                    <i class="fas fa-font" style="color: #8b5cf6;"></i>
-                    <h3>알파벳 쓰기</h3>
-                    <p>대소문자 따라 쓰기와 가이드라인 연습 격자 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openHanjaConfig()">
-                    <i class="fas fa-book-open" style="color: var(--accent-yellow);"></i>
-                    <h3>한자 쓰기</h3>
-                    <p>기초 한자 따라 쓰기 및 뜻풀이 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openNumberConfig()">
-                    <i class="fas fa-sort-numeric-up-alt" style="color: #0284c7;"></i>
-                    <h3>숫자 쓰기</h3>
-                    <p>1부터 100까지 기초 숫자 따라 쓰기와 수 배열 연습 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openDrawingConfig()">
-                    <i class="fas fa-palette" style="color: var(--accent-green);"></i>
-                    <h3>그리기/색칠</h3>
-                    <p>창의력·연산 색칠, 대칭/모눈 그리기, 4단계 드로잉 교실입니다.</p>
-                </div>
-                <div class="category-card" onclick="openTracingConfig()">
-                    <i class="fas fa-route" style="color: var(--primary);"></i>
-                    <h3>선긋기 학습</h3>
-                    <p>직선, 곡선, 지그재그 등 기초 선긋기 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openEnglishConfig()">
-                    <i class="fas fa-spell-check" style="color: var(--accent-pink);"></i>
-                    <h3>영어 단어 학습</h3>
-                    <p>기초부터 심화까지 필수 영단어 쓰기 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openBlankPracticeConfig()">
-                    <i class="fas fa-file-alt" style="color: #6366f1;"></i>
-                    <h3>빈 쓰기 양식 (연습장)</h3>
-                    <p>한글 깍두기 공책(10칸/8칸), 영어 4선 노트, 한자 연습 격자 빈 양식입니다.</p>
-                </div>
-                <div class="category-card" onclick="openClockConfig()">
-                    <i class="fas fa-clock" style="color: #0284c7;"></i>
-                    <h3>시계 공부</h3>
-                    <p>아날로그 시계 읽기 및 시계바늘 그리기 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openMultiplicationConfig()">
-                    <i class="fas fa-times-circle" style="color: #ea580c;"></i>
-                    <h3>구구단 연습</h3>
-                    <p>2단~9단 순서 외우기, 빈칸 채우기, 셔플 퀴즈 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openMazeConfig()">
-                    <i class="fas fa-compass" style="color: #10b981;"></i>
-                    <h3>미로 찾기</h3>
-                    <p>창의력과 집중력을 키우는 단계별 미로 길찾기 학습지입니다.</p>
-                </div>
-                <div class="category-card" onclick="openCustomTextConfig()">
-                    <i class="fas fa-file-signature" style="color: #8b5cf6;"></i>
-                    <h3>맞춤 문장 쓰기</h3>
-                    <p>원하는 문장이나 낱말을 입력하여 10칸 깍두기 쓰기장을 만듭니다.</p>
-                </div>
-                <div class="category-card" onclick="openCalendarConfig()" style="background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%); color: white;">
-                    <i class="fas fa-calendar-alt" style="color: #fef08a;"></i>
-                    <h3 style="color: white;">달력 만들기</h3>
-                    <p style="color: rgba(255,255,255,0.9);">년도와 월을 선택하고 일정을 적어 가로로 출력하는 달력입니다.</p>
+
+                <!-- Favorites Section (Appears when user stars items) -->
+                <section id="favorites-section" class="menu-section" style="display: none;">
+                    <div class="section-header">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-badge" style="background: #fef3c7; color: #d97706;">
+                                <i class="fas fa-star"></i>
+                            </div>
+                            <h2 class="section-title">내 즐겨찾기</h2>
+                            <span class="section-desc">자주 사용하는 학습지 바로가기</span>
+                        </div>
+                    </div>
+                    <div id="favorites-grid" class="menu-grid"></div>
+                </section>
+
+                <!-- Section 1: Daily Study Package -->
+                <section class="menu-section" data-section-category="daily">
+                    <div class="section-header">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-badge" style="background: #ede9fe; color: #7c3aed;">
+                                <i class="fas fa-calendar-check"></i>
+                            </div>
+                            <h2 class="section-title">일일 학습 패키지</h2>
+                            <span class="section-desc">매일매일 균형 잡힌 필수 종합 학습 패키지</span>
+                        </div>
+                        <span class="section-count">2개</span>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="category-card featured-card" data-card-id="daily-elementary" data-keywords="초등2 일일학습 초등학교 한자 영단어 필수 패키지 오늘의공부" onclick="openDailyStudy()" style="background: linear-gradient(135deg, #6366f1 0%, #a855f7 100%);">
+                            <button class="favorite-btn" data-fav-id="daily-elementary" onclick="toggleFavorite(event, 'daily-elementary')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: rgba(255,255,255,0.2); color: #fbbf24;">
+                                    <i class="fas fa-star"></i>
+                                </div>
+                                <div>
+                                    <h3>초등2 일일학습</h3>
+                                </div>
+                            </div>
+                            <p>한자 5개 + 영단어 4개로 알차게 구성된 초등 2학년 맞춤 일일 학습 패키지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#초등2학년</span>
+                                <span class="card-tag">#한자5자+영단어4개</span>
+                                <span class="card-tag">#일일완성</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card featured-card" data-card-id="daily-kinder" data-keywords="유치5세 일일학습 유치원 숫자 알파벳 시계 연산 기초패키지 오늘의공부" onclick="openZombieStudy()" style="background: linear-gradient(135deg, #10b981 0%, #059669 100%);">
+                            <button class="favorite-btn" data-fav-id="daily-kinder" onclick="toggleFavorite(event, 'daily-kinder')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: rgba(255,255,255,0.2); color: #fef08a;">
+                                    <i class="fas fa-baby"></i>
+                                </div>
+                                <div>
+                                    <h3>유치5세 일일학습</h3>
+                                </div>
+                            </div>
+                            <p>숫자 쓰기 + 알파벳 쓰기 + 시계/연산 기초가 포함된 유치부 맞춤 패키지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#유치5세</span>
+                                <span class="card-tag">#숫자+알파벳+시계</span>
+                                <span class="card-tag">#기초패키지</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 2: Language & Writing -->
+                <section class="menu-section" data-section-category="language">
+                    <div class="section-header">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-badge" style="background: #fce7f3; color: #db2777;">
+                                <i class="fas fa-pen-fancy"></i>
+                            </div>
+                            <h2 class="section-title">언어 · 바른 글씨 쓰기</h2>
+                            <span class="section-desc">그림 단어부터 한글, 영어, 한자까지 또박또박 바른 글씨 연습</span>
+                        </div>
+                        <span class="section-count">6개</span>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="category-card" data-card-id="lang-hangeul-word" data-keywords="한글 단어 쓰기 그림 낱말 동물 과일 탈것 색칠" onclick="openHangeulWordConfig()">
+                            <button class="favorite-btn" data-fav-id="lang-hangeul-word" onclick="toggleFavorite(event, 'lang-hangeul-word')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #ffe4e6; color: #e11d48;">
+                                    <i class="fas fa-spell-check"></i>
+                                </div>
+                                <div>
+                                    <h3>한글 단어쓰기</h3>
+                                </div>
+                            </div>
+                            <p>생생한 그림과 함께 낱말을 따라 쓰고 익히는 유아·초등 단어쓰기 학습지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#생생그림</span>
+                                <span class="card-tag">#낱말익히기</span>
+                                <span class="card-tag">#따라쓰기</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="lang-hangeul" data-keywords="한글 쓰기 자음 모음 가나다 받침 10칸 깍두기 공책 글씨연습" onclick="openHangeulConfig()">
+                            <button class="favorite-btn" data-fav-id="lang-hangeul" onclick="toggleFavorite(event, 'lang-hangeul')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #fdf2f8; color: #db2777;">
+                                    <i class="fas fa-language"></i>
+                                </div>
+                                <div>
+                                    <h3>한글 쓰기</h3>
+                                </div>
+                            </div>
+                            <p>기초 자음·모음부터 가나다, 받침 글자까지 10칸 깍두기 격자 따라쓰기입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#자음모음</span>
+                                <span class="card-tag">#가나다</span>
+                                <span class="card-tag">#10칸깍두기</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="lang-custom-text" data-keywords="맞춤 문장 쓰기 자유문장 속담 명언 일기 10칸 공책 원고지" onclick="openCustomTextConfig()">
+                            <button class="favorite-btn" data-fav-id="lang-custom-text" onclick="toggleFavorite(event, 'lang-custom-text')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #f3e8ff; color: #7e22ce;">
+                                    <i class="fas fa-file-signature"></i>
+                                </div>
+                                <div>
+                                    <h3>맞춤 문장 쓰기</h3>
+                                </div>
+                            </div>
+                            <p>원하는 문장이나 낱말을 직접 입력하여 10칸 깍두기 쓰기장을 맞춤 제작합니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#자유문장입력</span>
+                                <span class="card-tag">#10칸공책</span>
+                                <span class="card-tag">#맞춤제작</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="lang-alphabet" data-keywords="알파벳 쓰기 영어 대문자 소문자 4선노트 가이드라인 alphabet" onclick="openAlphabetConfig()">
+                            <button class="favorite-btn" data-fav-id="lang-alphabet" onclick="toggleFavorite(event, 'lang-alphabet')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #ede9fe; color: #6d28d9;">
+                                    <i class="fas fa-font"></i>
+                                </div>
+                                <div>
+                                    <h3>알파벳 쓰기</h3>
+                                </div>
+                            </div>
+                            <p>대문자·소문자 따라 쓰기와 영어 4선 가이드라인 연습 격자 학습지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#대소문자</span>
+                                <span class="card-tag">#영어4선</span>
+                                <span class="card-tag">#가이드라인</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="lang-english-word" data-keywords="영어 단어 학습 초등영단어 필수단어 voca 파닉스 english" onclick="openEnglishConfig()">
+                            <button class="favorite-btn" data-fav-id="lang-english-word" onclick="toggleFavorite(event, 'lang-english-word')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #e0e7ff; color: #4338ca;">
+                                    <i class="fas fa-book"></i>
+                                </div>
+                                <div>
+                                    <h3>영어 단어 학습</h3>
+                                </div>
+                            </div>
+                            <p>교육부 권장 초등 필수 영단어를 주제별·수준별로 따라 쓰고 외웁니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#초등필수영단어</span>
+                                <span class="card-tag">#주제별</span>
+                                <span class="card-tag">#따라쓰기</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="lang-hanja" data-keywords="한자 쓰기 기초한자 8급 7급 6급 획순 부수 뜻풀이" onclick="openHanjaConfig()">
+                            <button class="favorite-btn" data-fav-id="lang-hanja" onclick="toggleFavorite(event, 'lang-hanja')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #fef3c7; color: #b45309;">
+                                    <i class="fas fa-book-open"></i>
+                                </div>
+                                <div>
+                                    <h3>한자 쓰기</h3>
+                                </div>
+                            </div>
+                            <p>급수별 기초 한자 따라 쓰기, 획순 안내 및 훈음·뜻풀이 학습지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#기초급수한자</span>
+                                <span class="card-tag">#획순안내</span>
+                                <span class="card-tag">#훈음학습</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 3: Math & Numbers -->
+                <section class="menu-section" data-section-category="math">
+                    <div class="section-header">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-badge" style="background: #e0f2fe; color: #0284c7;">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <h2 class="section-title">수학 · 기초 연산</h2>
+                            <span class="section-desc">사칙연산부터 구구단, 시계, 숫자 쓰기까지 수학적 감각 완성</span>
+                        </div>
+                        <span class="section-count">4개</span>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="category-card" data-card-id="math-calc" data-keywords="연산 공부 덧셈 뺄셈 곱셈 나눗셈 사칙연산 연산문제 자동생성" onclick="openMathConfig()">
+                            <button class="favorite-btn" data-fav-id="math-calc" onclick="toggleFavorite(event, 'math-calc')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #dbeafe; color: #1d4ed8;">
+                                    <i class="fas fa-calculator"></i>
+                                </div>
+                                <div>
+                                    <h3>연산 공부</h3>
+                                </div>
+                            </div>
+                            <p>한 자릿수부터 두 자릿수 덧셈, 뺄셈, 곱셈, 나눗셈 난이도별 자동 문제 생성기입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#덧셈·뺄셈</span>
+                                <span class="card-tag">#곱셈·나눗셈</span>
+                                <span class="card-tag">#수준별맞춤</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="math-multiplication" data-keywords="구구단 연습 곱셈 곱하기 2단 9단 순서 외우기 빈칸 퀴즈 셔플" onclick="openMultiplicationConfig()">
+                            <button class="favorite-btn" data-fav-id="math-multiplication" onclick="toggleFavorite(event, 'math-multiplication')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #ffedd5; color: #c2410c;">
+                                    <i class="fas fa-times-circle"></i>
+                                </div>
+                                <div>
+                                    <h3>구구단 연습</h3>
+                                </div>
+                            </div>
+                            <p>2단부터 9단까지 순서 외우기, 빈칸 채우기, 랜덤 셔플 퀴즈 학습지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#2단~9단</span>
+                                <span class="card-tag">#빈칸채우기</span>
+                                <span class="card-tag">#랜덤퀴즈</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="math-clock" data-keywords="시계 공부 시간 몇시몇분 아날로그시계 시계바늘 그리기 시간읽기" onclick="openClockConfig()">
+                            <button class="favorite-btn" data-fav-id="math-clock" onclick="toggleFavorite(event, 'math-clock')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #e0f2fe; color: #0369a1;">
+                                    <i class="fas fa-clock"></i>
+                                </div>
+                                <div>
+                                    <h3>시계 공부</h3>
+                                </div>
+                            </div>
+                            <p>정각/30분/5분 단위 아날로그 시계 읽기 및 시계바늘 직접 그리기 연습입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#아날로그시계</span>
+                                <span class="card-tag">#시간읽기</span>
+                                <span class="card-tag">#바늘그리기</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="math-number" data-keywords="숫자 쓰기 1부터100 수세기 수배열판 숫자연습 기초수학" onclick="openNumberConfig()">
+                            <button class="favorite-btn" data-fav-id="math-number" onclick="toggleFavorite(event, 'math-number')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #ccfbf1; color: #0f766e;">
+                                    <i class="fas fa-sort-numeric-up-alt"></i>
+                                </div>
+                                <div>
+                                    <h3>숫자 쓰기</h3>
+                                </div>
+                            </div>
+                            <p>1부터 100까지 기초 숫자 따라 쓰기와 수의 순서 및 수 배열 연습 학습지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#1부터100</span>
+                                <span class="card-tag">#수배열판</span>
+                                <span class="card-tag">#기초수세기</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 4: Creative & Play -->
+                <section class="menu-section" data-section-category="creative">
+                    <div class="section-header">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-badge" style="background: #dcfce7; color: #15803d;">
+                                <i class="fas fa-palette"></i>
+                            </div>
+                            <h2 class="section-title">창의 놀이 · 소근육 발달</h2>
+                            <span class="section-desc">운필력과 집중력, 공간지각력을 키우는 흥미로운 놀이 학습</span>
+                        </div>
+                        <span class="section-count">3개</span>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="category-card" data-card-id="creative-drawing" data-keywords="그리기 색칠 창의력 연산색칠 대칭 모눈 드로잉교실 미술" onclick="openDrawingConfig()">
+                            <button class="favorite-btn" data-fav-id="creative-drawing" onclick="toggleFavorite(event, 'creative-drawing')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #d1fae5; color: #047857;">
+                                    <i class="fas fa-palette"></i>
+                                </div>
+                                <div>
+                                    <h3>그리기 / 색칠</h3>
+                                </div>
+                            </div>
+                            <p>창의력·연산 색칠, 대칭/모눈 따라 그리기, 4단계 드로잉 교실입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#연산색칠</span>
+                                <span class="card-tag">#모눈대칭</span>
+                                <span class="card-tag">#4단계드로잉</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="creative-tracing" data-keywords="선긋기 학습 직선 곡선 지그재그 운필력 소근육 손힘" onclick="openTracingConfig()">
+                            <button class="favorite-btn" data-fav-id="creative-tracing" onclick="toggleFavorite(event, 'creative-tracing')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #ede9fe; color: #5b21b6;">
+                                    <i class="fas fa-route"></i>
+                                </div>
+                                <div>
+                                    <h3>선긋기 학습</h3>
+                                </div>
+                            </div>
+                            <p>직선, 곡선, 지그재그 등 소근육 힘과 바른 연필 쥐기를 돕는 기초 선긋기입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#직선·곡선</span>
+                                <span class="card-tag">#소근육발달</span>
+                                <span class="card-tag">#기초운필력</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="creative-maze" data-keywords="미로 찾기 단계별미로 길찾기 두뇌개발 집중력 퍼즐" onclick="openMazeConfig()">
+                            <button class="favorite-btn" data-fav-id="creative-maze" onclick="toggleFavorite(event, 'creative-maze')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #dcfce7; color: #166534;">
+                                    <i class="fas fa-compass"></i>
+                                </div>
+                                <div>
+                                    <h3>미로 찾기</h3>
+                                </div>
+                            </div>
+                            <p>창의력과 집중력을 키우는 단계별 미로 길찾기 두뇌 퍼즐 학습지입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#단계별미로</span>
+                                <span class="card-tag">#집중력향상</span>
+                                <span class="card-tag">#두뇌퍼즐</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Section 5: Templates & Tools -->
+                <section class="menu-section" data-section-category="tools">
+                    <div class="section-header">
+                        <div class="section-title-wrap">
+                            <div class="section-icon-badge" style="background: #f1f5f9; color: #475569;">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <h2 class="section-title">학습지 서식 · 편의 도구</h2>
+                            <span class="section-desc">언제든 인쇄하여 바로 사용하는 빈 양식과 맞춤 달력</span>
+                        </div>
+                        <span class="section-count">2개</span>
+                    </div>
+                    <div class="menu-grid">
+                        <div class="category-card" data-card-id="tool-blank" data-keywords="빈 쓰기 양식 연습장 깍두기 공책 10칸 8칸 영어4선 한자격자 원고지" onclick="openBlankPracticeConfig()">
+                            <button class="favorite-btn" data-fav-id="tool-blank" onclick="toggleFavorite(event, 'tool-blank')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #e0e7ff; color: #4f46e5;">
+                                    <i class="fas fa-file-alt"></i>
+                                </div>
+                                <div>
+                                    <h3>빈 쓰기 양식 (연습장)</h3>
+                                </div>
+                            </div>
+                            <p>한글 깍두기 공책(10칸/8칸), 영어 4선 노트, 한자 연습 격자 빈 양식입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#10칸/8칸깍두기</span>
+                                <span class="card-tag">#영어4선노트</span>
+                                <span class="card-tag">#한자격자</span>
+                            </div>
+                        </div>
+
+                        <div class="category-card" data-card-id="tool-calendar" data-keywords="달력 만들기 계획표 월별달력 가로출력 일정표 스케줄" onclick="openCalendarConfig()">
+                            <button class="favorite-btn" data-fav-id="tool-calendar" onclick="toggleFavorite(event, 'tool-calendar')">
+                                <i class="far fa-star"></i>
+                            </button>
+                            <div class="card-header-row">
+                                <div class="card-icon-box" style="background: #dbeafe; color: #1e40af;">
+                                    <i class="fas fa-calendar-alt"></i>
+                                </div>
+                                <div>
+                                    <h3>달력 만들기</h3>
+                                </div>
+                            </div>
+                            <p>년도와 월을 선택하고 일정을 적어 가로로 출력하는 맞춤형 월별 달력입니다.</p>
+                            <div class="card-tags">
+                                <span class="card-tag">#월별달력</span>
+                                <span class="card-tag">#일정메모</span>
+                                <span class="card-tag">#가로A4출력</span>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Empty State -->
+                <div id="menu-empty-state" class="menu-empty-state">
+                    <i class="fas fa-search"></i>
+                    <h3>일치하는 학습지가 없습니다</h3>
+                    <p><span id="empty-search-term" style="font-weight: 700; color: var(--primary);"></span> 검색 결과가 없습니다. 다른 단어로 검색해 보세요.</p>
+                    <button class="btn btn-outline" onclick="clearSearch()"><i class="fas fa-redo"></i> 전체 목록 보기</button>
                 </div>
             </div>
         </main>
@@ -245,6 +630,7 @@
         </div>
     </div>
 
+    <script src="scripts/dashboard.js?v=1"></script>
     <script src="app.js?v=6"></script>
 </body>
 </html>
